@@ -7,8 +7,13 @@ import {
 
 import EmotionsChart from './EmotionsChart';
 import ArtworkOverlay from './ArtworkOverlay';
+import AddEmotionForm from './AddEmotionForm';
 
-const EmotionsOverlay = ({ artwork }) => {
+const EmotionsOverlay = ({
+  artwork,
+  setArtwork,
+  setIsStatsUnlocked,
+}) => {
   return (
     <ArtworkOverlay>
       <Heading
@@ -28,6 +33,16 @@ const EmotionsOverlay = ({ artwork }) => {
       </Text>
 
       <EmotionsChart data={artwork?.emotions} />
+      <AddEmotionForm
+        artwork={artwork}
+        setArtwork={setArtwork}
+        setIsStatsUnlocked={setIsStatsUnlocked}
+        placeholder="Add another emotion"
+        _placeholder={{
+          color: "white",
+          fontSize: "2xl",
+        }}
+      />
     </ArtworkOverlay>
   )
 }

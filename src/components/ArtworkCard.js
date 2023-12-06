@@ -12,7 +12,7 @@ import { FaPalette, FaPaintBrush } from 'react-icons/fa';
 
 import client from '../services/artfeelzClient';
 
-import AddEmotionForm from './AddEmotionForm';
+import AddEmotionOverlay from './AddEmotionOverlay';
 import EmotionsOverlay from './EmotionsOverlay';
 
 
@@ -57,9 +57,12 @@ function ArtworkCard({ base, ...props }) {
             onClick={handleOverlayToggle}
           >
             { isStatsUnlocked ? (
-              <EmotionsOverlay artwork={artwork} />
+              <EmotionsOverlay
+                artwork={artwork}
+                setArtwork={setArtwork}
+                setIsStatsUnlocked={setIsStatsUnlocked} />
             ) : (
-              <AddEmotionForm
+              <AddEmotionOverlay 
                 artwork={artwork}
                 setArtwork={setArtwork}
                 setIsStatsUnlocked={setIsStatsUnlocked} />
@@ -126,7 +129,7 @@ function ArtworkCard({ base, ...props }) {
               textTransform='uppercase'
               ml='2'
             >
-              24 reactions
+              {artwork?.emotions.reduce((a, b) => a + b.count, 0)} reactions
             </Box>
           </Box>
           <Box

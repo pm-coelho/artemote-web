@@ -9,7 +9,7 @@ const EmotionsChart = ({ data }) => {
     const svg = d3.select(svgRef.current);
     const radiusScale = d3.scaleLinear()
       .domain([0, d3.max(data, d => d.count)])
-      .range([5, 100]); // Adjust the range for bubble sizes
+      .range([5, 80]); // Adjust the range for bubble sizes
 
     const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
@@ -97,7 +97,8 @@ const EmotionsChart = ({ data }) => {
   }, [data]);
 
   return (
-    <Flex align="center" h="400px">
+    <Flex align="center" overflow="hidden"
+    >
       <svg ref={svgRef} width="670" height="400"></svg>
     </Flex>
   );
