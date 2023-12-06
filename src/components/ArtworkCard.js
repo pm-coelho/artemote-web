@@ -4,40 +4,35 @@ import {
   Image,
   Badge,
   Divider,
-  Highlight,
-  Heading,
-  InputGroup,
   Text,
-  Input,
   IconButton,
 } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
-import client from '../services/artfeelzClient';
-import EmotionsChart from './EmotionsChart';
 import { FaPalette, FaPaintBrush } from 'react-icons/fa';
+
+import client from '../services/artfeelzClient';
+
+import AddEmotionForm from './AddEmotionForm';
+import EmotionsOverlay from './EmotionsOverlay';
 
 
 function ArtworkCard({ base, ...props }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isStatsUnlocked, setIsStatsUnlocked] = useState(false)
   const [artwork, setArtwork] = useState(base)
   const { id } = useParams()
-  const [emotion, setEmotion] = useState(null)
 
   useEffect(() => {
     id &&
-    client({
-      apiUrl: "http://localhost:8000/api",
-    }).artworks.get(id)
+      client({
+        apiUrl: "http://localhost:8000/api",
+      }).artworks.get(id)
       .then(res=> setArtwork(res))
   }, [id])
 
   const handleOverlayToggle = () => {
     setIsModalOpen(!isModalOpen);
   };
-
-  const handleEmotionChange = (e) => {
-    setEmotion(e.target.value)
-  }
 
   return (
     <Box
@@ -51,58 +46,24 @@ function ArtworkCard({ base, ...props }) {
     >
 
       <Box position="relative">
-        <Image src={artwork?.photo} alt="Sample Image" objectFit="cover"
-               onClick={handleOverlayToggle}
+        <Image
+          src={artwork?.photo}
+          alt="Sample Image"
+          objectFit="cover"
+          onClick={handleOverlayToggle}
         />
-        {isModalOpen&& (
+        {isModalOpen && (
           <Box
-            position="absolute"
-            top="0"
-            left="0"
-            width="100%"
-            height="100%"
-            backgroundColor="rgba(0, 0, 0, 0.7)"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            flexDirection="column"
-            p={10}
             onClick={handleOverlayToggle}
           >
-            <Heading
-              lineHeight='tall'
-              color='white'
-            >
-              <Highlight
-                query='you feel'
-                styles={{ px: '2', py: '1', rounded: 'full', bg: 'teal' }}
-              >
-                Tell us what you feel when you look at this artwork
-              </Highlight>
-            </Heading>
-            <Text fontSize="sm" width="70%"
-              color='white'
-            >
-              Take a moment to reflect on the artwork and write a one word
-              description of how it makes you feel.
-            </Text>
-            <InputGroup w="70%" mt={5}
-                        onClick={e => e.stopPropagation()}
-            >
-              <Input
-                size="lg"
-                variant="flushed"
-                placeholder='Warmth'
-                align='center'
-                pl={5}
-                pr={10}
-                overflowX='auto'
-                borderColor='white'
-                onChange={e => handleEmotionChange(e)}
-                fontSize='4xl'
-              />
-            </InputGroup>
-            <EmotionsChart data={artwork?.emotions} />
+            { isStatsUnlocked ? (
+              <EmotionsOverlay artwork={artwork} />
+            ) : (
+              <AddEmotionForm
+                artwork={artwork}
+                setArtwork={setArtwork}
+                setIsStatsUnlocked={setIsStatsUnlocked} />
+            )}
           </Box>
         )}
       </Box>
