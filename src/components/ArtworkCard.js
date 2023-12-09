@@ -4,20 +4,20 @@ import {
   Image,
   Badge,
   Divider,
-  Text,
   IconButton,
 } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
 import { FaPalette, FaPaintBrush } from 'react-icons/fa';
 
-import client from '../services/artfeelzClient';
-
+import { useAuth } from '../contexts/AuthContext';
 import AddEmotionOverlay from './AddEmotionOverlay';
 import EmotionsOverlay from './EmotionsOverlay';
 import ArtworkDetail from './ArtworkDetail'
 
 
 function ArtworkCard({ base, ...props }) {
+  const {client} = useAuth();
+
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isStatsUnlocked, setIsStatsUnlocked] = useState(false)
   const [artwork, setArtwork] = useState(base)
@@ -25,9 +25,9 @@ function ArtworkCard({ base, ...props }) {
 
   useEffect(() => {
     id &&
-      client().artworks.get(id)
+      client.artworks.get(id)
       .then(res=> setArtwork(res))
-  }, [id])
+  }, [client, id])
 
   const handleOverlayToggle = () => {
     setIsModalOpen(!isModalOpen);

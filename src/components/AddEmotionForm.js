@@ -7,10 +7,11 @@ import {
 } from '@chakra-ui/react';
 import { FaPalette } from 'react-icons/fa';
 
-import client from '../services/artfeelzClient';
+import { useAuth } from '../contexts/AuthContext';
 
 
 const AddEmotionForm = ({ artwork, setArtwork, setIsStatsUnlocked, ...props }) => {
+  const {client} = useAuth();
   const [emotion, setEmotion] = useState("")
 
   const handleEmotionChange = (e) => {
@@ -18,9 +19,9 @@ const AddEmotionForm = ({ artwork, setArtwork, setIsStatsUnlocked, ...props }) =
   }
 
   const handleEmotionSubmit = (e) => {
-    client().artworks.addEmotion(artwork?.id, emotion)
+    client.artworks.addEmotion(artwork?.id, emotion)
       .then(res => {
-        client().artworks.get(artwork?.id)
+        client.artworks.get(artwork?.id)
           .then(res=> {
             setEmotion("")
             setArtwork(res)

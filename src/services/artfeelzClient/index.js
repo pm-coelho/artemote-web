@@ -24,11 +24,10 @@ export default (config) => {
     axios.defaults.headers.common['Authorization'] = `Bearer ${config.token}`
   }
 
-  let apiUrl = config?.apiUrl || 'http://api.artemoted.com/api/v1/'
 
   let conn = axios.create(
     {
-      baseURL: apiUrl,
+      baseURL: config.apiUrl,
       timeout: 10000,
       transformResponse
     }

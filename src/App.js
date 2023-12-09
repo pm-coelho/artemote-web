@@ -4,6 +4,9 @@ import {
   theme,
 } from '@chakra-ui/react';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+
+import { AuthProvider } from './contexts/AuthContext';
+
 import Home from './components/Home';
 import Layout from './components/Layout';
 import ArtworkCard from './components/ArtworkCard';
@@ -11,14 +14,16 @@ import ArtworkCard from './components/ArtworkCard';
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <Router>
-        <Layout>
-          <Routes>
+      <AuthProvider>
+        <Router>
+          <Layout>
+            <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/artworks/:id" element={<ArtworkCard />} />
           </Routes>
         </Layout>
       </Router>
+    </AuthProvider>
     </ChakraProvider>
   );
 }
