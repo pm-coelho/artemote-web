@@ -18,12 +18,6 @@ jobs:
         with:
           node-version: '14'  # Change Node.js version if needed
 
-      - name: Install dependencies
-        run: npm install  # Or use yarn if you prefer
-
-      - name: Build React app
-        run: npm run build  # Adjust the command for your build script
-
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
         with:
