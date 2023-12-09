@@ -42,7 +42,7 @@ const ArtworkDetail = ({artwork, isStatsUnlocked}) => {
             query='this artwork makes you feel'
             styles={{ px: '2', py: '1', rounded: 'full', bg: 'teal' }}
           >
-            We strongly recomend you to take a moment and think about how this artwork makes you feel before looking exploring it's intricacies. When you are ready, click on the artwork to share your feelings.
+            We strongly recomend you to take a moment and think about how this artwork makes you feel before reading it's description. When ready, click on the artwork to share your feelings.
           </Highlight>
         </Text>
       )
