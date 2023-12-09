@@ -1,7 +1,6 @@
 import React, { createContext, useContext} from 'react';
 
 import artfeelzClient from '../services/artfeelzClient';
-import config from '../config.json';
 
 const AuthContext = createContext();
 
@@ -11,7 +10,7 @@ export function AuthProvider({ children }) {
   // const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
 
   let client = artfeelzClient({
-    apiUrl: config.apiUrl,
+    apiUrl: process.env.REACT_APP_ARTEMOTED_API_URL,
   //  token: accessToken
   });
 
