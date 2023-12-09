@@ -42,19 +42,20 @@ const AddEmotionForm = ({ artwork, setArtwork, setIsStatsUnlocked, ...props }) =
         <Input
           size="lg"
           variant="flushed"
+          color="white"
           placeholder=''
           align='center'
           pl={5}
-          pr={10}
           overflowX='auto'
           borderColor='white'
           onChange={e => handleEmotionChange(e)}
-          fontSize='4xl'
+          fontSize='2xl'
           value={emotion}
           {...props}
         />
         <IconButton
           variant='outline'
+          color="white"
           size='lg'
           icon={<FaPalette/>}
           ml={5}

@@ -12,7 +12,7 @@ const NavBar = () => {
       <Box display="flex" justifyContent="space-between" width="100%" p={2} >
         <Link to="/" >
           <Heading fontSize="3xl" as="b" color="teal.400" >
-            Artfeelz
+            Artemote
           </Heading>
         </Link>
         <ColorModeSwitcher/>

@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Heading,
   Text,
-  Highlight,
 } from '@chakra-ui/react';
 
 import EmotionsChart from './EmotionsChart';
@@ -21,7 +20,7 @@ const EmotionsOverlay = ({
         color='white'
         width="90%"
       >
-        Thank you for participating in this experiment!
+        Thank you for Participating!
       </Heading>
       <Text
         fontSize="sm"
@@ -29,7 +28,7 @@ const EmotionsOverlay = ({
         color='white'
       >
         Here is how you and others felt about this artwork.
-        Please come back later to see how the results change.
+        Come back later to see how the results change.
       </Text>
 
       <EmotionsChart data={artwork?.emotions} />
@@ -37,10 +36,10 @@ const EmotionsOverlay = ({
         artwork={artwork}
         setArtwork={setArtwork}
         setIsStatsUnlocked={setIsStatsUnlocked}
-        placeholder="Add another emotion"
+        placeholder="Felt something else?"
         _placeholder={{
           color: "white",
-          fontSize: "2xl",
+          fontSize: "0.5em",
         }}
       />
     </ArtworkOverlay>

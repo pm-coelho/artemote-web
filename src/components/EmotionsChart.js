@@ -4,17 +4,27 @@ import * as d3 from 'd3';
 
 const EmotionsChart = ({ data }) => {
   const svgRef = useRef();
+  let width = window.innerWidth; // Adjust as needed
+  let height = window.innerHeight; // Adjust as needed
+
+  if (width > 670) {
+    width = 670;
+  }
+  if (height > 400) {
+    height = 400;
+  }
 
   useEffect(() => {
     const svg = d3.select(svgRef.current);
     const radiusScale = d3.scaleLinear()
       .domain([0, d3.max(data, d => d.count)])
-      .range([5, 80]); // Adjust the range for bubble sizes
+      .range([5, Math.min(width, height) / 7]); // Adjust the bubble size range based on window size
+
 
     const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
     const pack = d3.pack()
-      .size([670, 400])
+      .size([width, height])
       .padding(5);
 
     const root = d3.hierarchy({ children: data })
@@ -23,14 +33,13 @@ const EmotionsChart = ({ data }) => {
     pack(root);
 
     const simulation = d3.forceSimulation(root.descendants().slice(1))
-      .force('charge', d3.forceManyBody().strength(40))
-      .force('center', d3.forceCenter(335, 200))
+      .force('charge', d3.forceManyBody().strength(50))
+      .force('center', d3.forceCenter(width/2, height/2))
       .force('collision', d3.forceCollide().radius(d => radiusScale(d.data.count) + 2))
       .on('tick', () => {
         bubbles
           .attr('cx', d => d.x)
           .attr('cy', d => d.y);
-
         labels
           .attr('x', d => d.x)
           .attr('y', d => d.y)
@@ -99,7 +108,7 @@ const EmotionsChart = ({ data }) => {
   return (
     <Flex align="center" overflow="hidden"
     >
-      <svg ref={svgRef} width="670" height="400"></svg>
+      <svg ref={svgRef} width={width} height={height}></svg>
     </Flex>
   );
 };

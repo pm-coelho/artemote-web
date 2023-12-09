@@ -14,6 +14,7 @@ import client from '../services/artfeelzClient';
 
 import AddEmotionOverlay from './AddEmotionOverlay';
 import EmotionsOverlay from './EmotionsOverlay';
+import ArtworkDetail from './ArtworkDetail'
 
 
 function ArtworkCard({ base, ...props }) {
@@ -95,26 +96,10 @@ function ArtworkCard({ base, ...props }) {
           </Box>
         </Box>
         <Divider />
-        <Box
-          overflowY='auto'
-          maxH='300px'
-          pt={3}
-          pl={5}
-          pr={5}
-          textAlign="left"
-        >
-          {artwork?.description.split("\n").map((line, i ) => 
-            <Text
-              key={i}
-              mt='1'
-              color='gray.300'
-              fontSize='sm'
-              noOfLines={40}
-            >
-              {line}
-            </Text>
-          )}
-        </Box>
+          <ArtworkDetail
+            artwork={artwork}
+            isStatsUnlocked={isStatsUnlocked}
+          />
         <Divider />
         <Box display='flex' justifyContent='space-between' alignItems='baseline'>
           <Box display='flex' alignItems='baseline' mt="2">
@@ -139,7 +124,6 @@ function ArtworkCard({ base, ...props }) {
             fontSize='xs'
             textTransform='uppercase'
             mr='1'
-            pr={4}
           >
             <IconButton
               variant='outline'
