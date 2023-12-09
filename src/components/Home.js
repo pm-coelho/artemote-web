@@ -8,9 +8,7 @@ const Home = () => {
   const [artworks, setArtworks] = useState([])
 
   useEffect(() => {
-    client({
-      apiUrl: "http://localhost:8000/api",
-    }).artworks.list()
+    client().artworks.list()
       .then(res=> setArtworks(res))
   }, [])
 

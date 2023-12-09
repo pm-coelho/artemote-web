@@ -18,13 +18,9 @@ const AddEmotionForm = ({ artwork, setArtwork, setIsStatsUnlocked, ...props }) =
   }
 
   const handleEmotionSubmit = (e) => {
-    client({
-      apiUrl: "http://localhost:8000/api",
-    }).artworks.addEmotion(artwork?.id, emotion)
+    client().artworks.addEmotion(artwork?.id, emotion)
       .then(res => {
-        client({
-          apiUrl: "http://localhost:8000/api",
-        }).artworks.get(artwork?.id)
+        client().artworks.get(artwork?.id)
           .then(res=> {
             setEmotion("")
             setArtwork(res)

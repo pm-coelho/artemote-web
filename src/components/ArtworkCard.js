@@ -25,9 +25,7 @@ function ArtworkCard({ base, ...props }) {
 
   useEffect(() => {
     id &&
-      client({
-        apiUrl: "http://localhost:8000/api",
-      }).artworks.get(id)
+      client().artworks.get(id)
       .then(res=> setArtwork(res))
   }, [id])
 
