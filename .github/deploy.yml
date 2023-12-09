@@ -1,0 +1,36 @@
+name: Deploy React Frontend
+
+on:
+  push:
+    branches:
+      - main  # Change this to your main branch name
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'  # Change Node.js version if needed
+
+      - name: Install dependencies
+        run: npm install  # Or use yarn if you prefer
+
+      - name: Build React app
+        run: npm run build  # Adjust the command for your build script
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        run: |
+          docker build -f Dockefile.prod -t pmcoelho/artemote-api:web .
+          docker push pmcoelho/artemote-api:web

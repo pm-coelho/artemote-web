@@ -15,6 +15,7 @@
     COPY . .
 
     # Build the React app for production
+    ENV REACT_APP_ARTEMOTED_API_URL=https://api.artemoted.com/api
     RUN npm run build  # Adjust the build script as per your project setup
 
     # Use Nginx as a lightweight server to serve the production-ready React app
