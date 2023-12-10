@@ -41,7 +41,7 @@ function ArtworkCard({ base, ...props }) {
       borderRadius='lg'
       overflow='hidden'
       boxShadow='xl'
-      m={5}
+      m={2}
       {...props}
     >
       <Box position="relative"
