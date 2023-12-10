@@ -43,8 +43,12 @@ function ArtworkCard({ base, ...props }) {
       m={5}
       {...props}
     >
-
-      <Box position="relative">
+      <Box position="relative"
+        align='center'
+        alignItems='center'
+        display='flex'
+        minH={isModalOpen ? '570px' : ''}
+      >
         <Image
           src={artwork?.photo}
           alt="Sample Image"

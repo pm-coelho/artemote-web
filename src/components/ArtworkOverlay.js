@@ -15,6 +15,7 @@ const ArtworkOverlay = ({ children}) => {
       alignItems="center"
       flexDirection="column"
       p={10}
+      minH='570px'
     >
       {children}
     </Box>
