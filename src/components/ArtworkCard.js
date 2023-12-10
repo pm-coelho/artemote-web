@@ -5,6 +5,7 @@ import {
   Badge,
   Divider,
   IconButton,
+  useColorModeValue,
 } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
 import { FaPalette, FaPaintBrush } from 'react-icons/fa';
@@ -48,6 +49,7 @@ function ArtworkCard({ base, ...props }) {
         alignItems='center'
         display='flex'
         minH={isModalOpen ? '570px' : ''}
+        bg={useColorModeValue("gray.100", "gray.700")}
       >
         <Image
           src={artwork?.photo}
