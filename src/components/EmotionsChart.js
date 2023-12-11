@@ -33,18 +33,13 @@ const EmotionsChart = ({ data }) => {
 
 
   useEffect(() => {
-    if (width > 670) {
-      setWidth(670);
-    }
-    if (height > 400) {
-      setHeight(400);
-    }
-    console.log(width, height)
+    if (width > 670) setWidth(670);
+    if (height > 400) setHeight(400);
 
     const svg = d3.select(svgRef.current);
     const radiusScale = d3.scaleLinear()
       .domain([0, d3.max(data, d => d.count)])
-      .range([5, Math.min(width, height) / 3]); // Adjust the bubble size range based on window size
+      .range([5, Math.min(width, height) / 4]); // Adjust the bubble size range based on window size
 
     const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
@@ -61,8 +56,6 @@ const EmotionsChart = ({ data }) => {
       .force('charge', d3.forceManyBody().strength(50))
           .force('center', d3.forceCenter(width / 2, (height-30) / 2))
       .force('collision', d3.forceCollide().radius(d => radiusScale(d.data.count) + 2))
-      .force('x', d3.forceX().strength(0.1).x(d => Math.max(radiusScale(d.data.count), Math.min(width - radiusScale(d.data.count), d.x))))
-      .force('y', d3.forceY().strength(0.1).y(d => Math.max(radiusScale(d.data.count), Math.min(height - radiusScale(d.data.count), d.y))))
       .on('tick', () => {
         bubbles
           .attr('cx', d => d.x)
