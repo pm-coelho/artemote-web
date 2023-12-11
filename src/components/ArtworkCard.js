@@ -24,7 +24,7 @@ function ArtworkCard({ base, ...props }) {
   const [isStatsUnlocked, setIsStatsUnlocked] = useState(false)
   const [artwork, setArtwork] = useState(base)
   const { id } = useParams()
-  const [detailsView, setDetailsView] = useState("details")
+  const [detailsView, setDetailsView] = useState("emotions")
 
   useEffect(() => {
     id &&
@@ -57,7 +57,6 @@ function ArtworkCard({ base, ...props }) {
         align='center'
         alignItems='center'
         display='flex'
-        minH={isModalOpen ? '570px' : ''}
         bg={useColorModeValue("gray.100", "gray.700")}
       >
         <Image
@@ -148,15 +147,6 @@ function ArtworkCard({ base, ...props }) {
             <IconButton
               variant='outline'
               colorScheme='gray'
-              aria-label='details'
-              size='sm'
-              icon={<FaPaintBrush/>}
-              onClick={() => setDetailsView("details")}
-              style={{color: detailsView === "details" ? "teal" : "gray"}}
-            />
-            <IconButton
-              variant='outline'
-              colorScheme='gray'
               aria-label='emotions'
               size='sm'
               m={1}
@@ -166,6 +156,15 @@ function ArtworkCard({ base, ...props }) {
                 setIsModalOpen(false)
               }}
               style={{color: detailsView === "emotions" ? "teal" : "gray"}}
+            />
+            <IconButton
+              variant='outline'
+              colorScheme='gray'
+              aria-label='details'
+              size='sm'
+              icon={<FaPaintBrush/>}
+              onClick={() => setDetailsView("details")}
+              style={{color: detailsView === "details" ? "teal" : "gray"}}
             />
           </Box>
           )

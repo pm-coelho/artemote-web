@@ -4,7 +4,6 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-import EmotionsChart from './EmotionsChart';
 import ArtworkOverlay from './ArtworkOverlay';
 import AddEmotionForm from './AddEmotionForm';
 
@@ -30,7 +29,6 @@ const EmotionsOverlay = ({
         Check back later to witness how the results evolve.
       </Text>
 
-      <EmotionsChart data={artwork?.emotions} />
       <AddEmotionForm
         artwork={artwork}
         setArtwork={setArtwork}

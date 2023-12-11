@@ -18,7 +18,6 @@ const ArtworkOverlay = ({ children}) => {
       pb={10}
       pr={5}
       pl={5}
-      minH='570px'
     >
       {children}
     </Box>
