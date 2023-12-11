@@ -13,8 +13,8 @@ const EmotionsChart = ({ data }) => {
     const resizeChart = () => {
       if (divRef.current) {
         const { offsetWidth, offsetHeight } = divRef.current.parentElement;
-        setWidth(offsetWidth);
-        setHeight(offsetHeight);
+        if (offsetWidth !== width) setWidth(offsetWidth);
+        if (offsetHeight !== height) setHeight(offsetHeight);
       }
     };
 
@@ -33,8 +33,6 @@ const EmotionsChart = ({ data }) => {
 
 
   useEffect(() => {
-    if (width > 670) setWidth(670);
-    if (height > 400) setHeight(400);
 
     const svg = d3.select(svgRef.current);
     const radiusScale = d3.scaleLinear()

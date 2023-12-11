@@ -14,7 +14,7 @@ const Home = () => {
   }, [client])
 
     return (
-      <Box>
+      <Box maxW="688px">
         {artworks.map(artwork => (
           <ArtworkCard key={artwork.id} base={artwork} mb={12}/>
         ))}
