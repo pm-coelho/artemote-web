@@ -18,15 +18,14 @@ const AddEmotionOverlay = ({
     <ArtworkOverlay >
       <Heading color='white' >
         <Highlight
-          query='you feel'
+          query='reflect'
           styles={{ px: '2', py: '1', rounded: 'full', bg: 'teal' }}
         >
-          Tell us what you feel when you look at this artwork
+          We invite you to take a moment to reflect on how this artwork makes you feel.
         </Highlight>
       </Heading>
       <Text fontSize="sm" width="70%" color='white' >
-        Take a moment to reflect on the artwork and write a one word
-        description of how it makes you feel.
+        When ready share the emotion that best describes your feelings.
       </Text>
       <AddEmotionForm
         artwork={artwork}

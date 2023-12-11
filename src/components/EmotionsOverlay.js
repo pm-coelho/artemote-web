@@ -26,8 +26,8 @@ const EmotionsOverlay = ({
         width="70%"
         color='white'
       >
-        Here is how you and others felt about this artwork.
-        Come back later to see how the results change.
+        Explore how you and others felt about this artwork.
+        Check back later to witness how the results evolve.
       </Text>
 
       <EmotionsChart data={artwork?.emotions} />
