@@ -76,14 +76,14 @@ function ArtworkCard({ base, ...props }) {
         )}
       </Box>
 
-      <Box p='6'>
+      <Box p='3'>
+        {isStatsUnlocked &&
+         <Box>
         <Box display="flex" justifyContent="space-between" alignItems="baseline">
           <Box
-            fontWeight='semibold'
             as='h4'
             lineHeight='tight'
             noOfLines={1}
-            pl={5}
           >
             {artwork?.title}
           </Box>
@@ -94,7 +94,6 @@ function ArtworkCard({ base, ...props }) {
             fontSize='xs'
             textTransform='uppercase'
             ml='2'
-            pr={5}
           >
             {artwork?.artist.username}
           </Box>
@@ -105,6 +104,10 @@ function ArtworkCard({ base, ...props }) {
             isStatsUnlocked={isStatsUnlocked}
           />
         <Divider />
+         </Box>
+
+        }
+
         <Box display='flex' justifyContent='space-between' alignItems='baseline'>
           <Box display='flex' alignItems='baseline' mt="2">
             <Badge borderRadius='full' px='2' colorScheme='teal'>

@@ -3,7 +3,6 @@ import React from 'react';
 import {
   Box,
   Text,
-  Highlight,
 } from '@chakra-ui/react';
 
 
@@ -17,8 +16,7 @@ const ArtworkDetail = ({artwork, isStatsUnlocked}) => {
       pl={5}
       pr={5}
     >
-      {isStatsUnlocked ? (
-      artwork?.description.split("\n").map((line, i ) => 
+      {artwork?.description.split("\n").map((line, i ) => 
         <Text
           key={i}
           mt='1'
@@ -29,24 +27,7 @@ const ArtworkDetail = ({artwork, isStatsUnlocked}) => {
         >
           {line}
         </Text>
-      )) : (
-        <Text
-          mt='1'
-          color='gray.500'
-          fontSize='sm'
-          noOfLines={40}
-          textAlign="center"
-          pt={7}
-        >
-          <Highlight
-            query='this artwork makes you feel'
-            styles={{ px: '2', py: '1', rounded: 'full', bg: 'teal' }}
-          >
-            We strongly recomend you to take a moment and think about how this artwork makes you feel before reading it's description. When ready, click on the artwork to share your feelings.
-          </Highlight>
-        </Text>
-      )
-      }
+      )}
     </Box>
   )
 }
