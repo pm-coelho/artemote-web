@@ -55,14 +55,6 @@ const AddEmotionForm = ({ artwork, setArtwork, setIsStatsUnlocked, ...props }) =
           value={emotion}
           {...props}
         />
-        <IconButton
-          variant='outline'
-          color="white"
-          size='lg'
-          icon={<FaPalette/>}
-          ml={5}
-          onClick={handleEmotionSubmit}
-        />
       </InputGroup>
   )
 }
