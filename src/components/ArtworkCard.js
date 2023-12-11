@@ -8,7 +8,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
-import { FaPalette, FaPaintBrush } from 'react-icons/fa';
+import { FaPalette, FaPaintBrush, FaLock, FaLockOpen } from 'react-icons/fa';
 
 import { useAuth } from '../contexts/AuthContext';
 import AddEmotionOverlay from './AddEmotionOverlay';
@@ -124,6 +124,7 @@ function ArtworkCard({ base, ...props }) {
               {artwork?.emotions.reduce((a, b) => a + b.count, 0)} reactions
             </Box>
           </Box>
+          {isStatsUnlocked ? (
           <Box
             color='gray.500'
             fontWeight='semibold'
@@ -134,20 +135,42 @@ function ArtworkCard({ base, ...props }) {
           >
             <IconButton
               variant='outline'
-              colorScheme='gray'
+              colorScheme='gray.500'
               aria-label='Call Sage'
               size='sm'
               icon={<FaPaintBrush/>}
             />
             <IconButton
               variant='outline'
-              colorScheme='gray'
+              colorScheme='gray.500'
               aria-label='Call Sage'
               size='sm'
               m={1}
               icon={<FaPalette/>}
             />
           </Box>
+          )
+           :(
+             <Box
+               color='gray.500'
+               fontWeight='semibold'
+               letterSpacing='wide'
+               fontSize='xs'
+               textTransform='uppercase'
+               mr='1'
+             >
+               <IconButton
+                 variant='outline'
+                 colorScheme='gray.500'
+                 aria-label='Call Sage'
+                 size='sm'
+                 m={1}
+                 icon= {isModalOpen? <FaLockOpen/> :<FaLock/>}
+                 onClick={() => setIsModalOpen(!isModalOpen)}
+               />
+             </Box>
+           )
+          }
         </Box>
 
       </Box>
