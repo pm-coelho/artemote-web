@@ -46,6 +46,11 @@ const AddEmotionForm = ({ artwork, setArtwork, setIsStatsUnlocked, ...props }) =
           overflowX='auto'
           borderColor='white'
           onChange={e => handleEmotionChange(e)}
+          onKeyPress={e => {
+            if (e.key === "Enter") {
+              handleEmotionSubmit(e)
+            }
+          }}
           fontSize='2xl'
           value={emotion}
           {...props}

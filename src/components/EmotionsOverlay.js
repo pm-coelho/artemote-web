@@ -16,7 +16,6 @@ const EmotionsOverlay = ({
   return (
     <ArtworkOverlay>
       <Heading
-        lineHeight='tall'
         color='white'
         width="90%"
       >
