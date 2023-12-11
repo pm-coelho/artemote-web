@@ -14,7 +14,10 @@ const ArtworkOverlay = ({ children}) => {
       justifyContent="center"
       alignItems="center"
       flexDirection="column"
-      p={10}
+      pt={10}
+      pb={10}
+      pr={5}
+      pl={5}
       minH='570px'
     >
       {children}

@@ -1,25 +1,50 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Flex } from '@chakra-ui/react';
 import * as d3 from 'd3';
 
 const EmotionsChart = ({ data }) => {
   const svgRef = useRef();
-  let width = window.innerWidth; // Adjust as needed
-  let height = window.innerHeight; // Adjust as needed
+  const divRef = useRef();
 
-  if (width > 670) {
-    width = 670;
-  }
-  if (height > 400) {
-    height = 400;
-  }
+  const [width, setWidth] = useState(1);
+  const [height, setHeight] = useState(1);
 
   useEffect(() => {
+    const resizeChart = () => {
+      if (divRef.current) {
+        const { offsetWidth, offsetHeight } = divRef.current.parentElement;
+        setWidth(offsetWidth);
+        setHeight(offsetHeight);
+      }
+    };
+
+    resizeChart(); // Initial sizing
+
+    const handleResize = () => {
+      resizeChart(); // Update dimensions on window resize
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize); // Cleanup on unmount
+    };
+  }, []);
+
+
+  useEffect(() => {
+    if (width > 670) {
+      setWidth(670);
+    }
+    if (height > 400) {
+      setHeight(400);
+    }
+    console.log(width, height)
+
     const svg = d3.select(svgRef.current);
     const radiusScale = d3.scaleLinear()
       .domain([0, d3.max(data, d => d.count)])
-      .range([5, Math.min(width, height) / 7]); // Adjust the bubble size range based on window size
-
+      .range([5, Math.min(width, height) / 3]); // Adjust the bubble size range based on window size
 
     const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
@@ -34,19 +59,17 @@ const EmotionsChart = ({ data }) => {
 
     const simulation = d3.forceSimulation(root.descendants().slice(1))
       .force('charge', d3.forceManyBody().strength(50))
-      .force('center', d3.forceCenter(width/2, height/2))
+          .force('center', d3.forceCenter(width / 2, (height-30) / 2))
       .force('collision', d3.forceCollide().radius(d => radiusScale(d.data.count) + 2))
+      .force('x', d3.forceX().strength(0.1).x(d => Math.max(radiusScale(d.data.count), Math.min(width - radiusScale(d.data.count), d.x))))
+      .force('y', d3.forceY().strength(0.1).y(d => Math.max(radiusScale(d.data.count), Math.min(height - radiusScale(d.data.count), d.y))))
       .on('tick', () => {
         bubbles
           .attr('cx', d => d.x)
           .attr('cy', d => d.y);
         labels
           .attr('x', d => d.x)
-          .attr('y', d => d.y)
-          .style('font-size', d => `${radiusScale(d.data.count) / 3}px`) // Adjust font size based on bubble size
-          .style('font-family', 'Chakra UI, sans-serif') // Set font family to Chakra UI's font
-          .style('font-weight', 'normal') // Set font weight
-          .style('fill', 'white'); // Set text color to white
+          .attr('y', d => d.y);
       });
 
     const bubbles = svg.selectAll('.bubble')
@@ -70,10 +93,10 @@ const EmotionsChart = ({ data }) => {
       .attr('dy', '0.35em')
       .style('text-anchor', 'middle')
       .text(d => d.data.emotion)
-      .style('font-size', d => `${radiusScale(d.data.count) / 3}px`) // Set initial font size based on bubble size
-      .style('font-family', 'Chakra UI, sans-serif') // Set font family to Chakra UI's font
-      .style('font-weight', 'normal') // Set font weight
-      .style('fill', 'white'); // Set text color to white
+      .style('font-size', d => `${radiusScale(d.data.count) / 3}px`)
+      .style('font-family', 'Chakra UI, sans-serif')
+      .style('font-weight', 'normal')
+      .style('fill', 'white');
 
     function drag(simulation) {
       function dragstarted(event, d) {
@@ -103,12 +126,12 @@ const EmotionsChart = ({ data }) => {
       svg.selectAll('.bubble').remove();
       svg.selectAll('.label').remove();
     };
-  }, [data]);
+  }, [data, width, height]);
 
   return (
-    <Flex align="center" overflow="hidden"
+    <Flex align="center" overflow="hidden" ref={divRef}
     >
-      <svg ref={svgRef} width={width} height={height}></svg>
+      <svg ref={svgRef} width={width} height={height -10} ></svg>
     </Flex>
   );
 };

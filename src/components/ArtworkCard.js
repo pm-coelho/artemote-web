@@ -14,6 +14,7 @@ import { useAuth } from '../contexts/AuthContext';
 import AddEmotionOverlay from './AddEmotionOverlay';
 import EmotionsOverlay from './EmotionsOverlay';
 import ArtworkDetail from './ArtworkDetail'
+import EmotionDetail from './EmotionDetail'
 
 
 function ArtworkCard({ base, ...props }) {
@@ -23,6 +24,7 @@ function ArtworkCard({ base, ...props }) {
   const [isStatsUnlocked, setIsStatsUnlocked] = useState(false)
   const [artwork, setArtwork] = useState(base)
   const { id } = useParams()
+  const [detailsView, setDetailsView] = useState("details")
 
   useEffect(() => {
     id &&
@@ -33,6 +35,13 @@ function ArtworkCard({ base, ...props }) {
   const handleOverlayToggle = () => {
     setIsModalOpen(!isModalOpen);
   };
+
+  const getDetailsView = (v) => {
+    return {
+      "details": <ArtworkDetail artwork={artwork} />,
+      "emotions": <EmotionDetail artwork={artwork} />
+    }[v]
+  }
 
   return (
     <Box
@@ -79,33 +88,36 @@ function ArtworkCard({ base, ...props }) {
       <Box p='3'>
         {isStatsUnlocked &&
          <Box>
-        <Box display="flex" justifyContent="space-between" alignItems="baseline">
-          <Box
-            as='h4'
-            lineHeight='tight'
-            noOfLines={1}
-          >
-            {artwork?.title}
-          </Box>
-          <Box
-            color='gray.500'
-            fontWeight='semibold'
-            letterSpacing='wide'
-            fontSize='xs'
-            textTransform='uppercase'
-            ml='2'
-          >
-            {artwork?.artist.username}
-          </Box>
-        </Box>
-        <Divider />
-          <ArtworkDetail
-            artwork={artwork}
-            isStatsUnlocked={isStatsUnlocked}
-          />
-        <Divider />
+           <Box display="flex" justifyContent="space-between" alignItems="baseline">
+             <Box
+               as='h4'
+               noOfLines={1}
+             >
+               {artwork?.title}
+             </Box>
+             <Box
+               color='gray.500'
+               fontWeight='semibold'
+               letterSpacing='wide'
+               fontSize='xs'
+               textTransform='uppercase'
+               ml='2'
+             >
+               {artwork?.artist.username}
+             </Box>
+           </Box>
+           <Divider />
+           <Box
+             height='270px'
+             pt={3}
+             pb={3}
+             pl={5}
+             pr={5}
+           >
+             {getDetailsView(detailsView)}
+           </Box>
+           <Divider />
          </Box>
-
         }
 
         <Box display='flex' justifyContent='space-between' alignItems='baseline'>
@@ -135,18 +147,25 @@ function ArtworkCard({ base, ...props }) {
           >
             <IconButton
               variant='outline'
-              colorScheme='gray.500'
-              aria-label='Call Sage'
+              colorScheme='gray'
+              aria-label='details'
               size='sm'
               icon={<FaPaintBrush/>}
+              onClick={() => setDetailsView("details")}
+              style={{color: detailsView === "details" ? "teal" : "gray"}}
             />
             <IconButton
               variant='outline'
-              colorScheme='gray.500'
-              aria-label='Call Sage'
+              colorScheme='gray'
+              aria-label='emotions'
               size='sm'
               m={1}
               icon={<FaPalette/>}
+              onClick={() => {
+                setDetailsView("emotions")
+                setIsModalOpen(false)
+              }}
+              style={{color: detailsView === "emotions" ? "teal" : "gray"}}
             />
           </Box>
           )
@@ -162,10 +181,10 @@ function ArtworkCard({ base, ...props }) {
                <IconButton
                  variant='outline'
                  colorScheme='gray.500'
-                 aria-label='Call Sage'
+                 aria-label='Locked details'
                  size='sm'
                  m={1}
-                 icon= {isModalOpen? <FaLockOpen/> :<FaLock/>}
+                 icon={isModalOpen? <FaLockOpen/> :<FaLock/>}
                  onClick={() => setIsModalOpen(!isModalOpen)}
                />
              </Box>
