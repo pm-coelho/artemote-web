@@ -6,9 +6,6 @@ import {
   Divider,
   IconButton,
   Tooltip,
-  Avatar,
-  SkeletonCircle,
-  SkeletonText,
   useColorModeValue,
 } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
