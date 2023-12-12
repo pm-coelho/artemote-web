@@ -31,14 +31,8 @@ const EmotionsChart = ({ data }) => {
     };
   }, [width, height]);
 
-
   useEffect(() => {
-
     const svg = d3.select(svgRef.current);
-    const radiusScale = d3.scaleLinear()
-      .domain([0, d3.max(data, d => d.count)])
-      .range([5, Math.min(width, height) / 3]); // Adjust the bubble size range based on window size
-
     const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
     const pack = d3.pack()
@@ -52,26 +46,25 @@ const EmotionsChart = ({ data }) => {
 
     const simulation = d3.forceSimulation(root.descendants().slice(1))
       .force('charge', d3.forceManyBody().strength(50))
-      .force('center', d3.forceCenter(width / 2, (height-30) / 2))
-      .force('collision', d3.forceCollide().radius(d => radiusScale(d.data.count) + 2))
+      .force('center', d3.forceCenter(width / 2, height / 2))
+      .force('collision', d3.forceCollide().radius(d => d.r + 2))
       .on('tick', () => {
         bubbles
           .attr('cx', d => d.x)
-          .attr('cy', d => d.y);
+          .attr('cy', d => d.y)
+          .attr('r', d => d.r);
+
         labels
           .attr('x', d => d.x)
-          .attr('y', d => d.y);
+          .attr('y', d => d.y)
+          .style('font-size', d => `${d.r / 3}px`); // Adjust font size based on bubble size
       });
 
     const bubbles = svg.selectAll('.bubble')
       .data(root.descendants().slice(1))
       .enter().append('circle')
       .attr('class', 'bubble')
-      .attr('cx', d => d.x)
-      .attr('cy', d => d.y)
-      .attr('r', d => radiusScale(d.data.count))
       .style('fill', d => colorScale(d.data.emotion))
-      .style('opacity', 0.7)
       .attr('cursor', 'crosshair')
       .call(drag(simulation));
 
@@ -79,17 +72,16 @@ const EmotionsChart = ({ data }) => {
       .data(root.descendants().slice(1))
       .enter().append('text')
       .attr('class', 'label')
-      .attr('x', d => d.x)
-      .attr('y', d => d.y)
       .attr('text-anchor', 'middle')
       .attr('dy', '0.35em')
       .attr('cursor', 'crosshair')
       .style('text-anchor', 'middle')
       .text(d => d.data.emotion)
-      .style('font-size', d => `${radiusScale(d.data.count) / 3}px`)
       .style('font-family', 'Chakra UI, sans-serif')
       .style('font-weight', 'normal')
-      .style('fill', 'white');
+      .style('fill', 'white')
+      .style('font-size', d => `${d.r / 3}px`) // Set initial font size based on bubble size
+      .call(drag(simulation)); // Enable dragging for labels as well
 
     function drag(simulation) {
       function dragstarted(event, d) {
@@ -122,9 +114,8 @@ const EmotionsChart = ({ data }) => {
   }, [data, width, height]);
 
   return (
-    <Flex align="center" overflow="hidden" ref={divRef}
-    >
-      <svg ref={svgRef} width={width} height={height -10} ></svg>
+    <Flex align="center" overflow="hidden" ref={divRef}>
+      <svg ref={svgRef} width={width} height={height}></svg>
     </Flex>
   );
 };

@@ -131,7 +131,7 @@ function ArtworkCard({ base, ...props }) {
           w="50"
         />
         </Tooltip>
-        <Tooltip label="Artwork Details">
+        <Tooltip label="Description">
         <IconButton
           variant='link'
           colorScheme='gray'

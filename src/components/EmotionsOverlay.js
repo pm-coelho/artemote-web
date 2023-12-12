@@ -63,8 +63,8 @@ const EmotionsOverlay = ({
       </Box>
       <Box
         minHeight="250px"
-        width="90%"
-        height="90%"
+        width="95%"
+        height="95%"
       >
         <EmotionsChart data={artwork?.emotions} />
       </Box>
