@@ -52,7 +52,7 @@ const EmotionsChart = ({ data }) => {
 
     const simulation = d3.forceSimulation(root.descendants().slice(1))
       .force('charge', d3.forceManyBody().strength(50))
-          .force('center', d3.forceCenter(width / 2, (height-30) / 2))
+      .force('center', d3.forceCenter(width / 2, (height-30) / 2))
       .force('collision', d3.forceCollide().radius(d => radiusScale(d.data.count) + 2))
       .on('tick', () => {
         bubbles
@@ -72,6 +72,7 @@ const EmotionsChart = ({ data }) => {
       .attr('r', d => radiusScale(d.data.count))
       .style('fill', d => colorScale(d.data.emotion))
       .style('opacity', 0.7)
+      .attr('cursor', 'crosshair')
       .call(drag(simulation));
 
     const labels = svg.selectAll('.label')
@@ -82,6 +83,7 @@ const EmotionsChart = ({ data }) => {
       .attr('y', d => d.y)
       .attr('text-anchor', 'middle')
       .attr('dy', '0.35em')
+      .attr('cursor', 'crosshair')
       .style('text-anchor', 'middle')
       .text(d => d.data.emotion)
       .style('font-size', d => `${radiusScale(d.data.count) / 3}px`)

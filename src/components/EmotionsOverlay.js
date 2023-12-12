@@ -37,37 +37,49 @@ const EmotionsOverlay = ({
       />
     </Box>
   ): (
-    <Box >
-      <Heading
-        color='white'
-        width="90%"
-      >
-        Thank you for Participating!
-      </Heading>
-      <Text
-        fontSize="sm"
-        width="70%"
-        color='white'
-      >
-        Explore how you and others felt about this artwork.
-        Check back later to witness how the results evolve.
-      </Text>
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="space-between"
+      height="100%"
+    >
+      <Box>
+        <Heading
+          color='white'
+          width="90%"
+        >
+          Thank you for Participating!
+        </Heading>
+        <Text
+          fontSize="sm"
+          width="70%"
+          color='white'
+        >
+          Explore how you and others felt about this artwork.
+          Check back later to witness how the results evolve.
+        </Text>
 
+      </Box>
       <Box
         minHeight="250px"
+        width="90%"
+        height="90%"
       >
-      <EmotionsChart data={artwork?.emotions} />
+        <EmotionsChart data={artwork?.emotions} />
       </Box>
-      <AddEmotionForm
-        artwork={artwork}
-        setArtwork={setArtwork}
-        setIsLocked={setIsLocked}
-        placeholder="Felt something else?"
-        _placeholder={{
-          color: "white",
-          fontSize: "0.5em",
-        }}
-      />
+      <Box width="100%" >
+        <AddEmotionForm
+          artwork={artwork}
+          setArtwork={setArtwork}
+          setIsLocked={setIsLocked}
+          placeholder="Felt something else?"
+          _placeholder={{
+            color: "white",
+            fontSize: "0.5em",
+          }}
+        />
+      </Box>
     </Box>
   )
 
