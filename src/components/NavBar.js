@@ -30,9 +30,9 @@ const NavBar = () => {
           <Heading
             fontSize="2xl"
             as="b"
-            color={useColorModeValue("gray.800", "gray.200")}
+            color={useColorModeValue("teal", "teal")}
           >
-            Artemoted
+            Artemoted.com
           </Heading>
         </Link>
         <ColorModeSwitcher/>

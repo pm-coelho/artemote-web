@@ -24,6 +24,7 @@ const ArtDetailOverlay = ({
         fontSize='2xl'
         fontWeight='bold'
         textAlign="left"
+        textTransform='capitalize'
         pb={5}
       >
         {artwork?.title}

@@ -14,7 +14,9 @@ import {
   RiPaletteLine,
   RiImage2Line,
   RiLockFill,
-  RiLockUnlockFill
+  RiLockUnlockFill,
+  RiBubbleChartLine,
+  RiBubbleChartFill,
 } from "react-icons/ri";
 
 import { useAuth } from '../contexts/AuthContext';
@@ -149,7 +151,7 @@ function ArtworkCard({ base, ...props }) {
           </Box>
            <Divider />
 
-      <Box p='3'>
+      <Box p='2' pb='2' pt='0'>
         <Box display='flex' justifyContent='space-between' alignItems='baseline'>
           <Box display='flex' alignItems='baseline' mt="2">
             <Badge borderRadius='full' px='2' colorScheme='teal'>
@@ -176,12 +178,13 @@ function ArtworkCard({ base, ...props }) {
              >
                <IconButton
                  variant='link'
-                 cursor='pointer'
-                 colorScheme='gray.500'
-                 aria-label='Locked details'
-                 size='md'
+                 color={isLocked ? 'gray' : 'gray.200'}
+                 size='lg'
+                 fontSize="xs"
+                 onClick={() => setArtworkOverlay("emotions")}
+                 style={{fontSize: "1.4em"}}
                  m={1}
-                 icon={ isLocked ?  <RiLockFill/> : <RiLockUnlockFill/>}
+                 icon={ isLocked ?  <RiBubbleChartLine/> : <RiBubbleChartFill/>}
                />
              </Box>
         </Box>
