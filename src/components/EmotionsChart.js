@@ -29,7 +29,7 @@ const EmotionsChart = ({ data }) => {
     return () => {
       window.removeEventListener('resize', handleResize); // Cleanup on unmount
     };
-  }, []);
+  }, [width, height]);
 
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const EmotionsChart = ({ data }) => {
     const svg = d3.select(svgRef.current);
     const radiusScale = d3.scaleLinear()
       .domain([0, d3.max(data, d => d.count)])
-      .range([5, Math.min(width, height) / 4]); // Adjust the bubble size range based on window size
+      .range([5, Math.min(width, height) / 3]); // Adjust the bubble size range based on window size
 
     const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 

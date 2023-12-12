@@ -5,14 +5,19 @@ import {
   Badge,
   Divider,
   IconButton,
+  Tooltip,
   useColorModeValue,
 } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
-import { FaLock, FaLockOpen } from 'react-icons/fa';
-import { RiBrushLine, RiPaletteLine, RiImage2Line, RiLockFill, RiLockUnlockFill} from "react-icons/ri";
+import {
+  RiBrushLine,
+  RiPaletteLine,
+  RiImage2Line,
+  RiLockFill,
+  RiLockUnlockFill
+} from "react-icons/ri";
 
 import { useAuth } from '../contexts/AuthContext';
-import AddEmotionOverlay from './AddEmotionOverlay';
 import EmotionsOverlay from './EmotionsOverlay';
 import ArtDetailsOverlay from './ArtDetailsOverlay'
 
@@ -20,11 +25,11 @@ import ArtDetailsOverlay from './ArtDetailsOverlay'
 function ArtworkCard({ base, ...props }) {
   const {client} = useAuth();
 
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isOverlayActive, setIsOverlayOpen] = useState(false)
   const [artwork, setArtwork] = useState(base)
   const { id } = useParams()
   const [artworkOverlay, setArtworkOverlay] = useState(null)
-  const [isSeen, setIsSeen] = useState(false)
+  const [isLocked, setIsLocked] = useState(true)
 
   useEffect(() => {
     id &&
@@ -33,7 +38,7 @@ function ArtworkCard({ base, ...props }) {
   }, [client, id])
 
   const handleOverlayToggle = () => {
-    setIsModalOpen(!isModalOpen);
+    setIsOverlayOpen(!isOverlayActive);
     setArtworkOverlay(artworkOverlay === null ? "emotions" : null)
   };
 
@@ -41,11 +46,11 @@ function ArtworkCard({ base, ...props }) {
     return {
       "details": <ArtDetailsOverlay artwork={artwork}/>,
       "emotions": <EmotionsOverlay
-                    artwork={artwork}
-                    setArtwork={setArtwork}
-                    isSeen={isSeen}
-                    setIsSeen={setIsSeen}
-                     />
+          artwork={artwork}
+          setArtwork={setArtwork}
+          isLocked={isLocked}
+          setIsLocked={setIsLocked}
+      />
     }[o]
   }
 
@@ -73,7 +78,7 @@ function ArtworkCard({ base, ...props }) {
         />
           <Box
             onClick={handleOverlayToggle}
-            minH={isModalOpen ? "570px" : "0"}
+            minH={artworkOverlay ? "570px" : "0"}
           >
             {artworkOverlay && getOverlay(artworkOverlay)}
           </Box>
@@ -89,6 +94,7 @@ function ArtworkCard({ base, ...props }) {
             mr='1'
             display="flex"
           >
+            <Tooltip label="Artwork">
             <IconButton
               variant='link'
               colorScheme='gray'
@@ -102,6 +108,8 @@ function ArtworkCard({ base, ...props }) {
               }}
               isRound
             />
+            </Tooltip>
+            <Tooltip label="Emotions">
             <IconButton
               variant='link'
               colorScheme='gray'
@@ -120,12 +128,13 @@ function ArtworkCard({ base, ...props }) {
               h="50"
               w="50"
             />
+            </Tooltip>
+            <Tooltip label="Artwork Details">
             <IconButton
               variant='link'
               colorScheme='gray'
-              aria-label='details'
               size='lg'
-              icon={<RiBrushLine/>}
+              icon={isLocked ? <RiLockFill/> : <RiBrushLine/>}
               onClick={() =>
                 setArtworkOverlay(artworkOverlay === "details" ? null : "details")
               }
@@ -134,7 +143,9 @@ function ArtworkCard({ base, ...props }) {
                 fontSize: "2.7em"
               }}
               isRound
+              isDisabled={isLocked}
             />
+            </Tooltip>
           </Box>
            <Divider />
 
@@ -170,7 +181,7 @@ function ArtworkCard({ base, ...props }) {
                  aria-label='Locked details'
                  size='md'
                  m={1}
-                 icon={isModalOpen? <RiLockUnlockFill/> :<RiLockFill/>}
+                 icon={ isLocked ?  <RiLockFill/> : <RiLockUnlockFill/>}
                />
              </Box>
         </Box>

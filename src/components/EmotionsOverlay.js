@@ -13,12 +13,31 @@ import AddEmotionForm from './AddEmotionForm';
 const EmotionsOverlay = ({
   artwork,
   setArtwork,
-  setIsSeen,
-  isSeen,
+  setIsLocked,
+  isLocked,
 }) => {
 
-  const content = isSeen ? (
+  const content = isLocked ? (
     <Box>
+      <Heading color='white' >
+        <Highlight
+          query='reflect'
+          styles={{ px: '2', py: '1', rounded: 'full', bg: 'teal' }}
+        >
+          We invite you to take a moment to reflect on how this artwork makes you feel.
+        </Highlight>
+      </Heading>
+      <Text fontSize="sm" width="70%" color='white' >
+        When ready share the emotion that best describes your feelings.
+      </Text>
+      <AddEmotionForm
+        artwork={artwork}
+        setArtwork={setArtwork}
+        setIsLocked={setIsLocked}
+      />
+    </Box>
+  ): (
+    <Box >
       <Heading
         color='white'
         width="90%"
@@ -42,7 +61,7 @@ const EmotionsOverlay = ({
       <AddEmotionForm
         artwork={artwork}
         setArtwork={setArtwork}
-        setIsSeen={setIsSeen}
+        setIsLocked={setIsLocked}
         placeholder="Felt something else?"
         _placeholder={{
           color: "white",
@@ -50,28 +69,7 @@ const EmotionsOverlay = ({
         }}
       />
     </Box>
-  ): (
-    <Box>
-      <Heading color='white' >
-        <Highlight
-          query='reflect'
-          styles={{ px: '2', py: '1', rounded: 'full', bg: 'teal' }}
-        >
-          We invite you to take a moment to reflect on how this artwork makes you feel.
-        </Highlight>
-      </Heading>
-      <Text fontSize="sm" width="70%" color='white' >
-        When ready share the emotion that best describes your feelings.
-      </Text>
-      <AddEmotionForm
-        artwork={artwork}
-        setArtwork={setArtwork}
-        setIsSeen={setIsSeen}
-      />
-    </Box>
-
   )
-
 
   return (
     <ArtworkOverlay>

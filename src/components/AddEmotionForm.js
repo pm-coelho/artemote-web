@@ -8,7 +8,7 @@ import {
 import { useAuth } from '../contexts/AuthContext';
 
 
-const AddEmotionForm = ({ artwork, setArtwork, setIsSeen, ...props }) => {
+const AddEmotionForm = ({ artwork, setArtwork, setIsLocked, ...props }) => {
   const {client} = useAuth();
   const [emotion, setEmotion] = useState("")
 
@@ -23,7 +23,7 @@ const AddEmotionForm = ({ artwork, setArtwork, setIsSeen, ...props }) => {
           .then(res=> {
             setEmotion("")
             setArtwork(res)
-            setIsSeen(true)
+            setIsLocked(false)
           })
       })
   }

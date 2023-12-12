@@ -1,13 +1,10 @@
 import React from 'react'
 import {
-  Heading,
   Text,
-  Highlight,
   Box,
 } from '@chakra-ui/react'
 
 import ArtworkOverlay from './ArtworkOverlay'
-import AddEmotionForm from './AddEmotionForm'
 
 const ArtDetailOverlay = ({
   artwork,
@@ -19,9 +16,18 @@ const ArtDetailOverlay = ({
     <ArtworkOverlay >
     <Box
       overflowY="auto"
-      maxH="100%"
+      width="100%"
       p={5}
     >
+      <Text
+        color='white'
+        fontSize='2xl'
+        fontWeight='bold'
+        textAlign="left"
+        pb={5}
+      >
+        {artwork?.title}
+      </Text>
       {artwork?.description.split("\n").map((line, i ) => 
         <Text
           key={i}
