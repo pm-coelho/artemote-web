@@ -3,14 +3,12 @@ import React, {useState} from 'react';
 import {
   InputGroup,
   Input,
-  IconButton,
 } from '@chakra-ui/react';
-import { FaPalette } from 'react-icons/fa';
 
 import { useAuth } from '../contexts/AuthContext';
 
 
-const AddEmotionForm = ({ artwork, setArtwork, setIsStatsUnlocked, ...props }) => {
+const AddEmotionForm = ({ artwork, setArtwork, setIsSeen, ...props }) => {
   const {client} = useAuth();
   const [emotion, setEmotion] = useState("")
 
@@ -25,7 +23,7 @@ const AddEmotionForm = ({ artwork, setArtwork, setIsStatsUnlocked, ...props }) =
           .then(res=> {
             setEmotion("")
             setArtwork(res)
-            setIsStatsUnlocked(true)
+            setIsSeen(true)
           })
       })
   }

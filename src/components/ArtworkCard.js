@@ -8,23 +8,23 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
-import { FaPalette, FaPaintBrush, FaLock, FaLockOpen } from 'react-icons/fa';
+import { FaLock, FaLockOpen } from 'react-icons/fa';
+import { RiBrushLine, RiPaletteLine, RiImage2Line, RiLockFill, RiLockUnlockFill} from "react-icons/ri";
 
 import { useAuth } from '../contexts/AuthContext';
 import AddEmotionOverlay from './AddEmotionOverlay';
 import EmotionsOverlay from './EmotionsOverlay';
-import ArtworkDetail from './ArtworkDetail'
-import EmotionDetail from './EmotionDetail'
+import ArtDetailsOverlay from './ArtDetailsOverlay'
 
 
 function ArtworkCard({ base, ...props }) {
   const {client} = useAuth();
 
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isStatsUnlocked, setIsStatsUnlocked] = useState(false)
   const [artwork, setArtwork] = useState(base)
   const { id } = useParams()
-  const [detailsView, setDetailsView] = useState("emotions")
+  const [artworkOverlay, setArtworkOverlay] = useState(null)
+  const [isSeen, setIsSeen] = useState(false)
 
   useEffect(() => {
     id &&
@@ -34,13 +34,19 @@ function ArtworkCard({ base, ...props }) {
 
   const handleOverlayToggle = () => {
     setIsModalOpen(!isModalOpen);
+    setArtworkOverlay(artworkOverlay === null ? "emotions" : null)
   };
 
-  const getDetailsView = (v) => {
+  const getOverlay = (o) => {
     return {
-      "details": <ArtworkDetail artwork={artwork} />,
-      "emotions": <EmotionDetail artwork={artwork} />
-    }[v]
+      "details": <ArtDetailsOverlay artwork={artwork}/>,
+      "emotions": <EmotionsOverlay
+                    artwork={artwork}
+                    setArtwork={setArtwork}
+                    isSeen={isSeen}
+                    setIsSeen={setIsSeen}
+                     />
+    }[o]
   }
 
   return (
@@ -50,7 +56,7 @@ function ArtworkCard({ base, ...props }) {
       borderRadius='lg'
       overflow='hidden'
       boxShadow='xl'
-      m={2}
+      m={1}
       {...props}
     >
       <Box position="relative"
@@ -65,60 +71,74 @@ function ArtworkCard({ base, ...props }) {
           objectFit="cover"
           onClick={handleOverlayToggle}
         />
-        {isModalOpen && (
           <Box
             onClick={handleOverlayToggle}
+            minH={isModalOpen ? "570px" : "0"}
           >
-            { isStatsUnlocked ? (
-              <EmotionsOverlay
-                artwork={artwork}
-                setArtwork={setArtwork}
-                setIsStatsUnlocked={setIsStatsUnlocked} />
-            ) : (
-              <AddEmotionOverlay 
-                artwork={artwork}
-                setArtwork={setArtwork}
-                setIsStatsUnlocked={setIsStatsUnlocked} />
-            )}
+            {artworkOverlay && getOverlay(artworkOverlay)}
           </Box>
-        )}
       </Box>
+          <Box
+            color='gray.500'
+            fontWeight='semibold'
+            letterSpacing='wide'
+            fontSize='xs'
+            textTransform='uppercase'
+            mt='1'
+            ml='2'
+            mr='1'
+            display="flex"
+          >
+            <IconButton
+              variant='link'
+              colorScheme='gray'
+              aria-label='details'
+              size='lg'
+              icon={<RiImage2Line/>}
+              onClick={() => setArtworkOverlay(null)}
+              style={{
+                color: artworkOverlay === null ? "teal" : "gray",
+                fontSize: "2.7em"
+              }}
+              isRound
+            />
+            <IconButton
+              variant='link'
+              colorScheme='gray'
+              aria-label='emotions'
+              size='lg'
+              m={1}
+              icon={< RiPaletteLine />}
+              onClick={() => {
+                setArtworkOverlay(artworkOverlay === "emotions" ? null : "emotions")
+              }}
+              style={{
+                color: artworkOverlay === "emotions" ? "teal" : "gray",
+                fontSize: "2.7em"
+              }}
+              isRound
+              h="50"
+              w="50"
+            />
+            <IconButton
+              variant='link'
+              colorScheme='gray'
+              aria-label='details'
+              size='lg'
+              icon={<RiBrushLine/>}
+              onClick={() =>
+                setArtworkOverlay(artworkOverlay === "details" ? null : "details")
+              }
+              style={{
+                color: artworkOverlay === "details" ? "teal" : "gray",
+                fontSize: "2.7em"
+              }}
+              isRound
+            />
+          </Box>
+           <Divider />
 
       <Box p='3'>
-        {isStatsUnlocked &&
-         <Box>
-           <Box display="flex" justifyContent="space-between" alignItems="baseline">
-             <Box
-               as='h4'
-               noOfLines={1}
-             >
-               {artwork?.title}
-             </Box>
-             <Box
-               color='gray.500'
-               fontWeight='semibold'
-               letterSpacing='wide'
-               fontSize='xs'
-               textTransform='uppercase'
-               ml='2'
-             >
-               {artwork?.artist.username}
-             </Box>
-           </Box>
-           <Divider />
-           <Box
-             height='270px'
-             pt={3}
-             pb={3}
-             pl={5}
-             pr={5}
-           >
-             {getDetailsView(detailsView)}
-           </Box>
-           <Divider />
-         </Box>
-        }
-
         <Box display='flex' justifyContent='space-between' alignItems='baseline'>
           <Box display='flex' alignItems='baseline' mt="2">
             <Badge borderRadius='full' px='2' colorScheme='teal'>
@@ -135,40 +155,6 @@ function ArtworkCard({ base, ...props }) {
               {artwork?.emotions.reduce((a, b) => a + b.count, 0)} reactions
             </Box>
           </Box>
-          {isStatsUnlocked ? (
-          <Box
-            color='gray.500'
-            fontWeight='semibold'
-            letterSpacing='wide'
-            fontSize='xs'
-            textTransform='uppercase'
-            mr='1'
-          >
-            <IconButton
-              variant='outline'
-              colorScheme='gray'
-              aria-label='emotions'
-              size='sm'
-              m={1}
-              icon={<FaPalette/>}
-              onClick={() => {
-                setDetailsView("emotions")
-                setIsModalOpen(false)
-              }}
-              style={{color: detailsView === "emotions" ? "teal" : "gray"}}
-            />
-            <IconButton
-              variant='outline'
-              colorScheme='gray'
-              aria-label='details'
-              size='sm'
-              icon={<FaPaintBrush/>}
-              onClick={() => setDetailsView("details")}
-              style={{color: detailsView === "details" ? "teal" : "gray"}}
-            />
-          </Box>
-          )
-           :(
              <Box
                color='gray.500'
                fontWeight='semibold'
@@ -178,17 +164,15 @@ function ArtworkCard({ base, ...props }) {
                mr='1'
              >
                <IconButton
-                 variant='outline'
+                 variant='link'
+                 cursor='pointer'
                  colorScheme='gray.500'
                  aria-label='Locked details'
-                 size='sm'
+                 size='md'
                  m={1}
-                 icon={isModalOpen? <FaLockOpen/> :<FaLock/>}
-                 onClick={() => setIsModalOpen(!isModalOpen)}
+                 icon={isModalOpen? <RiLockUnlockFill/> :<RiLockFill/>}
                />
              </Box>
-           )
-          }
         </Box>
 
       </Box>
