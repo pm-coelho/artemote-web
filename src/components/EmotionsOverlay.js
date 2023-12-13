@@ -21,10 +21,10 @@ const EmotionsOverlay = ({
     <Box>
       <Heading color='white' >
         <Highlight
-          query='reflect'
+          query='emotions'
           styles={{ px: '2', py: '1', rounded: 'full', bg: 'teal' }}
         >
-          We invite you to take a moment to reflect on how this artwork makes you feel.
+          Pause for a moment to reflect on the emotions this artwork evokes.
         </Highlight>
       </Heading>
       <Text fontSize="sm" width="70%" color='white' >
