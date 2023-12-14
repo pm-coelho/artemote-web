@@ -73,7 +73,7 @@ function ArtworkCard({ base, ...props }) {
       >
         <Image
           src={artwork?.photo}
-          alt="Sample Image"
+          alt={artwork?.title || "Artwork" }
           objectFit="cover"
           onClick={handleOverlayToggle}
         />
@@ -191,7 +191,7 @@ function ArtworkCard({ base, ...props }) {
               textTransform='uppercase'
               ml='2'
             >
-              {artwork?.emotions.reduce((a, b) => a + b.count, 0)} reactions
+              {artwork?.emotions?.reduce((a, b) => a + b.count, 0)} reactions
             </Box>
           </Box>
              <Box

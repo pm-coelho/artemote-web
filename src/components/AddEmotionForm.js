@@ -19,7 +19,7 @@ const AddEmotionForm = ({ artwork, setArtwork, setIsLocked, ...props }) => {
   const handleEmotionSubmit = (e) => {
     client.artworks.addEmotion(artwork?.id, emotion)
       .then(res => {
-        client.artworks.get(artwork?.id)
+        client.artworks.get(artwork.id)
           .then(res=> {
             setEmotion("")
             setArtwork(res)
