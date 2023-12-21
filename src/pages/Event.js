@@ -4,11 +4,13 @@ import { Box } from '@chakra-ui/react';
 
 import { useAuth } from '../contexts/AuthContext';
 
+import Layout from '../components/Layout';
+import ArtworkCard from '../components/ArtworkCard';
+
 const Event = () => {
   const [event, setEvent] = useState()
   const {client} = useAuth();
   const { id } = useParams()
-  console.log(event)
 
   useEffect(() => {
     client.events.get(id)
@@ -16,9 +18,13 @@ const Event = () => {
   }, [id, client])
 
   return (
-    <Box maxW="688px">
-      AAAA
-    </Box>
+    <Layout event={event}>
+      <Box maxW="688px">
+        {event && event.artworks.map(artwork => (
+          <ArtworkCard key={artwork.id} base={artwork} mb={12}/>
+        ))}
+      </Box>
+    </Layout>
   );
 }
 

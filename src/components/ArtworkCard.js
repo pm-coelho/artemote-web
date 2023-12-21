@@ -33,10 +33,9 @@ function ArtworkCard({ base, ...props }) {
   const [isLocked, setIsLocked] = useState(true)
 
   useEffect(() => {
-    id &&
-      client.artworks.get(id)
-      .then(res=> setArtwork(res))
-  }, [client, id])
+    !base && id &&
+      client.artworks.get(id).then(setArtwork)
+  }, [base, client, id])
 
   const handleOverlayToggle = () => {
     setIsOverlayOpen(!isOverlayActive);
@@ -47,11 +46,11 @@ function ArtworkCard({ base, ...props }) {
     return {
       "details": <ArtDetailsOverlay artwork={artwork}/>,
       "emotions": <EmotionsOverlay
-          artwork={artwork}
-          setArtwork={setArtwork}
-          isLocked={isLocked}
-          setIsLocked={setIsLocked}
-      />
+                    artwork={artwork}
+                    setArtwork={setArtwork}
+                    isLocked={isLocked}
+                    setIsLocked={setIsLocked}
+                  />
     }[o]
   }
 
@@ -165,7 +164,7 @@ function ArtworkCard({ base, ...props }) {
           {!isLocked&&
            <Box>
             {artwork?.artist.username}
-          </Box>
+           </Box>
           }
         </Box>
       </Box>

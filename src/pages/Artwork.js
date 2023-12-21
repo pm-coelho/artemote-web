@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom'
 import { Box } from '@chakra-ui/react';
 
 import { useAuth } from '../contexts/AuthContext';
+
+import Layout from '../components/Layout';
 import ArtworkCard from '../components/ArtworkCard';
 
 const Artwork = () => {
@@ -16,9 +18,11 @@ const Artwork = () => {
   }, [id, client])
 
   return (
-    <Box maxW="688px">
-      <ArtworkCard base={artwork}/>
-    </Box>
+    <Layout>
+      <Box maxW="688px">
+        <ArtworkCard base={artwork}/>
+      </Box>
+    </Layout>
   );
 }
 
