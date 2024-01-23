@@ -10,8 +10,12 @@ const Home = () => {
   const {client} = useAuth();
 
   useEffect(() => {
-    !artworks && client.artworks.list()
-      .then(res=> setArtworks(res))
+
+    if (!artworks.length){
+      client.artworks.list()
+        .then(res=> setArtworks(res))
+        .catch(console.log)
+    }
   }, [artworks, client])
 
   return (
