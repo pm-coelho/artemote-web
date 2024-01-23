@@ -15,6 +15,7 @@ const Artwork = () => {
   useEffect(() => {
     id && client.artworks.get(id)
       .then(res=> setArtwork(res))
+      .catch(console.log)
   }, [id, client])
 
   return (

@@ -35,8 +35,11 @@ function ArtworkCard({ base, ...props }) {
   const [isLocked, setIsLocked] = useState(true)
 
   useEffect(() => {
-    !base && id &&
-      client.artworks.get(id).then(setArtwork)
+    if (base) {
+      setArtwork(base)
+    } else {
+      client.artworks.get(id).then(setArtwork).catch(console.log)
+    }
   }, [base, client, id])
 
   const handleOverlayToggle = () => {
