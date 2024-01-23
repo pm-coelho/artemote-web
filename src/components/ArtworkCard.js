@@ -16,6 +16,8 @@ import {
   RiLockFill,
   RiBubbleChartLine,
   RiBubbleChartFill,
+  RiCalendarEventLine,
+  RiMapPin2Line,
 } from "react-icons/ri";
 
 import { useAuth } from '../contexts/AuthContext';
@@ -147,6 +149,39 @@ function ArtworkCard({ base, ...props }) {
           isDisabled={isLocked}
         />
         </Tooltip>
+
+        <Tooltip label="Events">
+        <IconButton
+          variant='link'
+          colorScheme='gray'
+          size='lg'
+          icon={isLocked ? <RiLockFill/> : <RiCalendarEventLine/>}
+          onClick={() =>console.log("Events not implemented")}
+          style={{
+            color: artworkOverlay === "details" ? "teal" : "gray",
+            fontSize: "2.7em"
+          }}
+          isRound
+          isDisabled={true}
+        />
+        </Tooltip>
+
+        <Tooltip label="Location">
+        <IconButton
+          variant='link'
+          colorScheme='gray'
+          size='lg'
+          icon={isLocked ? <RiLockFill/> : <RiMapPin2Line/>}
+          onClick={() =>console.log("Location not implemented")}
+          style={{
+            color: artworkOverlay === "details" ? "teal" : "gray",
+            fontSize: "2.7em"
+          }}
+          isRound
+          isDisabled={true}
+        />
+        </Tooltip>
+
       </Box >
         <Box
           color='gray'

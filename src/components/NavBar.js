@@ -72,7 +72,6 @@ const NavBar = ({ artwork, event }) => {
       zIndex="sticky"
       alignItems="center"
       backgroundColor={useColorModeValue("white", "gray.800")}
-      onClick={onOpen}
     >
       <Box
         display="flex"
@@ -82,61 +81,50 @@ const NavBar = ({ artwork, event }) => {
         alignItems="center"
         maxH="50"
       >
-        <Link pt={1} to="/" >
-          <Heading
-            fontSize="2xl"
-            as="b"
-            color={useColorModeValue("teal", "teal")}
-          >
-            {event ? `${event.name}` : 'Artemoted'}
-          </Heading>
-        </Link>
-        <ColorModeSwitcher/>
+        <Box
+          onClick={onOpen}
+          width="90%"
+          textAlign="left"
+        >
+          <Link pt={1} to="/" >
+            <Heading
+              fontSize="2xl"
+              as="b"
+              color={useColorModeValue("teal", "teal")}
+            >
+              {event ? `${event.name}` : 'Artemoted'}
+            </Heading>
+          </Link>
+        </Box>
+        <Box hidden={isOpen} >
+          <ColorModeSwitcher/>
+        </Box>
       </Box>
-      <Drawer placement="top" onClose={onClose} isOpen={isOpen} size="lg" autoFocus={false} >
+      <Drawer
+        placement="top"
+        onClose={onClose}
+        isOpen={isOpen}
+        size="lg"
+        autoFocus={false}
+      >
          <DrawerOverlay marginTop="49" />
          <DrawerContent
            backgroundColor={useColorModeValue("white", "gray.800")}
            marginTop="49"
            overflowY="scroll"
            size="sm"
+           p="20px"
          >
-           <Box
-               display="flex"
-               justifyContent="center"
-               alignItems="center"
-               flexDirection="column"
-               p={5}
-             >
+           <Box>
              <Image
-               width="100%"
-               maxH="30vh"
                src={event?.image}
-               fit="contain"
-               alt="event image"
+               float="right"
+               width="35%"
+               alt="Event Image"
+               ml="10px"
+                mb="10px"
              />
-           </Box>
-           <Box
-             display="flex"
-             flexDirection="column"
-             justifyContent="space-between"
-             width="100%"
-             p={2}
-             alignItems="center"
-           >
-             <Box
-               px={5}
-               color='white'
-               rounded='md'
-               width="100%"
-               height="100%"
-               display="flex"
-               overflowY="scroll"
-               maxW="688px"
-             >
-               <Box maxH="300px"
-               >
-                 {event?.description.split("\n").map((line, i ) => 
+             {event?.description.split("\n").map((line, i ) => 
                    <Text
                      key={i}
                      mt='1'
@@ -148,8 +136,6 @@ const NavBar = ({ artwork, event }) => {
                      {line}
                    </Text>
                  )}
-               </Box>
-             </Box>
            </Box>
            <DrawerFooter
              display="flex"
