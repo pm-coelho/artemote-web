@@ -25,10 +25,12 @@ const EventNavbarDrawerLocationContent = ({event}) => {
   const [address, setAddress] = useState('Loading address...');
 
   useEffect(() => {
-    if (event && event.location) {
+    if (event?.address?.location) {
+      // TODO: move this to a cached endpoint
       const geocodeLatLng = async () => {
         // Construct URL for the Nominatim API
-        const apiUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${event.location[0]}&lon=${event.location[1]}`;
+        console.log(event.address.location[0]);
+        const apiUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${event.address.location[0]}&lon=${event.address.location[1]}`;
 
         try {
           const response = await axios.get(apiUrl, {
@@ -46,17 +48,11 @@ const EventNavbarDrawerLocationContent = ({event}) => {
         }
       };
 
-      if (event.location[0] && event.location[1]) {
+      if (event.address.location[0] && event.address.location[1]) {
         geocodeLatLng();
       }
     }
   }, [event]);
-
-
-
-
-
-
 
 
   return (
@@ -66,9 +62,9 @@ const EventNavbarDrawerLocationContent = ({event}) => {
         height="400px"
         float="right"
       >
-        {event?.location &&
+        {event?.address?.location &&
          <MapContainer
-           center={event.location}
+           center={event.address.location}
            zoom={13}
            style={{ height: '400px', width: '100%' }}
          >
@@ -76,7 +72,7 @@ const EventNavbarDrawerLocationContent = ({event}) => {
              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
            />
-           <Marker position={event.location}
+           <Marker position={event?.address?.location}
                    icon={new L.Icon({
                      iconUrl: require('leaflet/dist/images/marker-icon.png'),
                      shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
@@ -90,7 +86,7 @@ const EventNavbarDrawerLocationContent = ({event}) => {
                {event.name} <br /> 
              </Popup>
            </Marker>
-           <UpdateMap location={event.location}/>
+           <UpdateMap location={event?.address?.location}/>
          </MapContainer>
         }
       </Box>
@@ -100,7 +96,7 @@ const EventNavbarDrawerLocationContent = ({event}) => {
          ml="10px"
        >
          <Text>
-           {/* {address.city} */}
+          {/* {address.city} */}
           {/* {address.city_district} */}
           {/* {address.county} */}
           {/* {address.state} */}
