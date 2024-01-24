@@ -3,6 +3,7 @@ import {
   ChakraProvider,
   theme,
 } from '@chakra-ui/react';
+import 'leaflet/dist/leaflet.css';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
 import { AuthProvider } from './contexts/AuthContext';

@@ -2,9 +2,7 @@ import React from 'react';
 
 import {
   Box,
-  Text,
   useColorModeValue,
-  Image,
   IconButton,
   DrawerContent,
   DrawerFooter,
@@ -18,8 +16,11 @@ import {
   RiGalleryLine,
 } from "react-icons/ri";
 
+import EventNavbarDrawerDescriptionContent from './EventNavbarDrawerDescriptionContent';
+import EventNavbarDrawerLocationContent from './EventNavbarDrawerLocationContent';
 
 const EventNavbarDrawer = ({isOpen, onClose, event}) => {
+  const [content, setContent] = React.useState("description");
 
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -58,124 +59,110 @@ const EventNavbarDrawer = ({isOpen, onClose, event}) => {
     return fullString;
   };
 
+  const getContent = (content) => {
+    return {
+      "description": <EventNavbarDrawerDescriptionContent event={event}/>,
+      "location": <EventNavbarDrawerLocationContent event={event}/>,
+    }[content]
+  }
+  console.log(event)
+
   return (
-
     <Drawer
-    placement="top"
-    onClose={onClose}
-    isOpen={isOpen}
-    size="lg"
-    autoFocus={false}
+      placement="top"
+      onClose={onClose}
+      isOpen={isOpen}
+      size="lg"
+      autoFocus={false}
     >
-    <DrawerOverlay marginTop="49" />
+      <DrawerOverlay marginTop="49" />
+      <DrawerContent
+        backgroundColor={useColorModeValue("white", "gray.800")}
+        marginTop="49"
+        overflowY="scroll"
+        size="sm"
+        p="20px"
+      >
+        {getContent(content)}
 
-
-    <DrawerContent
-    backgroundColor={useColorModeValue("white", "gray.800")}
-    marginTop="49"
-    overflowY="scroll"
-    size="sm"
-    p="20px"
-    >
-    <Box>
-    <Image
-    src={event?.image}
-    float="right"
-    width="35%"
-    ml="10px"
-    mb="10px"
-      />
-    {event?.description.split("\n").map((line, i ) => 
-                   <Text
-                     key={i}
-                     mt='1'
-                     color='gray.500'
-                     fontSize='sm'
-                     noOfLines={40}
-                     textAlign="left"
-                   >
-                     {line}
-                   </Text>
-                 )}
-           </Box>
-           <DrawerFooter
-             display="flex"
-             justifyContent="space-between"
-           >
-
-             <Box
-               color='gray'
-               fontWeight='semibold'
-               letterSpacing='wide'
-               fontSize='xl'
-               textTransform='Capitalize'
-               display="flex"
-               alignItems="center"
-             >
-               {event && getFormattedDateRange(event)}
-             </Box>
-             <Box
-               color='gray.500'
-               fontWeight='semibold'
-               letterSpacing='wide'
-               fontSize='xs'
-               textTransform='uppercase'
-             >
-               <IconButton
-                 variant='link'
-                 colorScheme='gray'
-                 aria-label='details'
-                 size='lg'
-                 icon={<RiFileList2Line/>}
-                 style={{
-                   color: "teal", // artworkOverlay === null ? "teal" : "gray",
-                   fontSize: "2.7em"
-                 }}
-                 isRound
-               />
-               <IconButton
-                 variant='link'
-                 colorScheme='gray'
-                 aria-label='details'
-                 size='lg'
-                 icon={<RiGalleryLine/>}
-                 style={{
-                   color: "gray", // artworkOverlay === null ? "teal" : "gray",
-                   fontSize: "2.7em"
-                 }}
-                 isDisabled
-                 isRound
-               />
-               <IconButton
-                 variant='link'
-                 colorScheme='gray'
-                 aria-label='details'
-                 size='lg'
-                 icon={<RiUser3Line/>}
-                 style={{
-                   color: "gray", // artworkOverlay === null ? "teal" : "gray",
-                   fontSize: "2.7em"
-                 }}
-                 isDisabled
-                 isRound
-               />
-               <IconButton
-                 variant='link'
-                 colorScheme='gray'
-                 aria-label='details'
-                 size='lg'
-                 icon={<RiMapPin2Line/>}
-                 style={{
-                   color: "gray", // artworkOverlay === null ? "teal" : "gray",
-                   fontSize: "2.7em"
-                 }}
-                 isDisabled
-                 isRound
-               />
-             </Box >
-           </DrawerFooter>
-         </DrawerContent>
-      </Drawer>
+      <DrawerFooter
+          display="flex"
+          justifyContent="space-between"
+        >
+          <Box
+            color='gray'
+            fontWeight='semibold'
+            letterSpacing='wide'
+            fontSize='xl'
+            textTransform='Capitalize'
+            display="flex"
+            alignItems="center"
+          >
+            {event && getFormattedDateRange(event)}
+          </Box>
+          <Box
+            color='gray.500'
+            fontWeight='semibold'
+            letterSpacing='wide'
+            fontSize='xs'
+            textTransform='uppercase'
+          >
+            <IconButton
+              variant='link'
+              colorScheme='gray'
+              aria-label='description'
+              size='lg'
+              icon={<RiFileList2Line/>}
+              style={{
+                color: content === "description" ? "teal" : "gray",
+                fontSize: "2.7em"
+              }}
+              onClick={() => setContent("description")}
+              isRound
+            />
+            <IconButton
+              variant='link'
+              colorScheme='gray'
+              aria-label='artworks'
+              size='lg'
+              icon={<RiGalleryLine/>}
+              style={{
+                color: "gray", // artworkOverlay === null ? "teal" : "gray",
+                fontSize: "2.7em"
+              }}
+              isDisabled
+              isRound
+            />
+            <IconButton
+              variant='link'
+              colorScheme='gray'
+              aria-label='artist'
+              size='lg'
+              icon={<RiUser3Line/>}
+              style={{
+                color: "gray", // artworkOverlay === null ? "teal" : "gray",
+                fontSize: "2.7em"
+              }}
+              isDisabled
+              isRound
+            />
+            <IconButton
+              variant='link'
+              colorScheme='gray'
+              aria-label='location'
+              size='lg'
+              icon={<RiMapPin2Line/>}
+              style={{
+                color: content === "location" ? "teal" : "gray",
+                fontSize: "2.7em"
+              }}
+              onClick={() => setContent("location")}
+              isRound
+            />
+          </Box >
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
   )
 }
 
