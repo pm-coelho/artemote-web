@@ -65,7 +65,6 @@ const EventNavbarDrawer = ({isOpen, onClose, event}) => {
       "location": <EventNavbarDrawerLocationContent event={event}/>,
     }[content]
   }
-  console.log(event)
 
   return (
     <Drawer

@@ -29,7 +29,6 @@ const EventNavbarDrawerLocationContent = ({event}) => {
       // TODO: move this to a cached endpoint
       const geocodeLatLng = async () => {
         // Construct URL for the Nominatim API
-        console.log(event.address.location[0]);
         const apiUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${event.address.location[0]}&lon=${event.address.location[1]}`;
 
         try {
@@ -37,13 +36,11 @@ const EventNavbarDrawerLocationContent = ({event}) => {
             // headers: { 'User-Agent': 'YourApp/1.0 (youremail@example.com)' }  // Replace with your app and contact info
           });
           if (response.data) {
-            console.log(response.data.address);
             setAddress(response.data.address)
           } else {
             setAddress('Address not found');
           }
         } catch (error) {
-          console.error('Error in reverse geocoding:', error);
           setAddress('Error retrieving address');
         }
       };

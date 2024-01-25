@@ -6,12 +6,12 @@ import {
 } from '@chakra-ui/react';
 import NavBar from './NavBar';
 
-const Layout = ({ artwork, event, children }) => {
+const Layout = ({ artwork, event, artist, children }) => {
   return (
       <Box textAlign="center" fontSize="xl">
         <Grid minH="100vh">
           <VStack spacing={2}>
-            <NavBar artwork={artwork} event={event} />
+            <NavBar artwork={artwork} event={event} artist={artist}/>
             {children}
           </VStack>
         </Grid>

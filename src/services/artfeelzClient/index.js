@@ -3,6 +3,7 @@ import axios from "axios";
 import AuthManager from "./auth-manager.js";
 import ArtworksManager from "./artworks-manager.js";
 import EventsManager from "./events-manager.js";
+import ArtistsManager from "./artists-manager.js";
 
 
 export default (config) => {
@@ -38,5 +39,6 @@ export default (config) => {
     auth: AuthManager(conn),
     artworks: ArtworksManager(conn),
     events: EventsManager(conn),
+    artists: ArtistsManager(conn),
   }
 }

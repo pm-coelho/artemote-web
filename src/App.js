@@ -11,6 +11,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import Artwork from './pages/Artwork';
 import Home from './pages/Home';
 import Event from './pages/Event';
+import ArtistPage from './pages/Artist';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/artworks/:id" element={<Artwork />} />
             <Route path="/events/:id" element={<Event />} />
+            <Route path="/artists/:username" element={<ArtistPage />} />
           </Routes>
         </Router>
       </AuthProvider>
