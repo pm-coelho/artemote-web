@@ -83,7 +83,6 @@ const EventNavbarDrawer = ({isOpen, onClose, event}) => {
         p="20px"
       >
         {getContent(content)}
-
       <DrawerFooter
           display="flex"
           justifyContent="space-between"

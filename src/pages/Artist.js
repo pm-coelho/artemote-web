@@ -20,11 +20,10 @@ const ArtistPage = () => {
         .catch(console.log)
     }
   }, [username, artist, client])
-  console.log(artist)
 
   return (
     <Layout artist={artist}>
-      <Box>
+      <Box width="90%">
         <ArtistCard artist={artist}/>
       </Box>
       <Box maxW="688px">

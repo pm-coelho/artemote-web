@@ -8,7 +8,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
-import {RiArrowLeftCircleLine} from 'react-icons/ri';
+import { RiArrowLeftCircleLine, RiPaletteFill } from 'react-icons/ri';
 
 import EventNavbarDrawer from './EventNavbarDrawer';
 
@@ -49,16 +49,32 @@ const NavBar = ({ artwork, event, artist }) => {
             textTransform='uppercase'
             pt={2}
           >
+          {
+            artwork || event || artist ?
             <IconButton
               variant='link'
               aria-label='description'
               icon={<RiArrowLeftCircleLine />}
               style={{
-                color: "#234E52",
+                color: "#2a4365",
                 fontSize: "2.7em"
               }}
               isRound
+              onClick={() => window.history.back()}
             />
+            :
+            <IconButton
+              variant='link'
+              aria-label='description'
+              icon={< RiPaletteFill />}
+              style={{
+                color: "#2a4365",
+                fontSize: "2.7em"
+              }}
+              isRound
+              onClick={() => window.history.back()}
+            />
+          }
         </Box>
 
         <Box
