@@ -64,7 +64,7 @@ const ArtistPage = () => {
                       { artist?.firstName } { artist?.lastName }
                     </Text>
                     <Text fontSize="sm" color="gray.500">
-                      bio
+                      { artist?.bio }
                     </Text>
                   </Box>
                 </WrapItem>
