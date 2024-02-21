@@ -119,150 +119,148 @@ function ArtworkCard({ base, ...props }) {
             {artworkOverlay && getOverlay(artworkOverlay)}
           </Box>
       </Box>
-      <Box display='flex' justifyContent='space-between'
-      >
-      <Box
-        color='gray.500'
-        fontWeight='semibold'
-        letterSpacing='wide'
-        fontSize='xs'
-        textTransform='uppercase'
-        mt='1'
-        ml='2'
-        mr='1'
-        display="flex"
-      >
-        <Tooltip label="Artwork">
-        <IconButton
-          variant='link'
-          colorScheme='gray'
-          aria-label='details'
-          size='lg'
-          icon={<RiImage2Line/>}
-          onClick={() => setArtworkOverlay(null)}
-          style={{
-            color: artworkOverlay === null ? "teal" : "gray",
-            fontSize: "2.7em"
-          }}
-          isRound
-        />
-        </Tooltip>
-        <Tooltip label="Emotions">
-        <IconButton
-          variant='link'
-          colorScheme='gray'
-          aria-label='emotions'
-          size='lg'
-          m={1}
-          icon={< RiPaletteLine />}
-          onClick={() => {
-            setArtworkOverlay(artworkOverlay === "emotions" ? null : "emotions")
-          }}
-          style={{
-            color: artworkOverlay === "emotions" ? "teal" : "gray",
-            fontSize: "2.7em"
-          }}
-          isRound
-          h="50"
-          w="50"
-        />
-        </Tooltip>
-        <Tooltip label="Description">
-        <IconButton
-          variant='link'
-          colorScheme='gray'
-          size='lg'
-          icon={isLocked ? <RiLockFill/> : <RiBrushLine/>}
-          onClick={() =>
-            setArtworkOverlay(artworkOverlay === "details" ? null : "details")
-          }
-          style={{
-            color: artworkOverlay === "details" ? "teal" : "gray",
-            fontSize: "2.7em"
-          }}
-          isRound
-          isDisabled={isLocked}
-        />
-        </Tooltip>
+      <Box display='flex' justifyContent='space-between' >
+        <Box
+          color='gray.500'
+          fontWeight='semibold'
+          letterSpacing='wide'
+          fontSize='xs'
+          textTransform='uppercase'
+          mt='1'
+          ml='2'
+          mr='1'
+          display="flex"
+        >
 
-        <Tooltip label="Events">
-        <IconButton
-          variant='link'
-          colorScheme='gray'
-          size='lg'
-          icon={isLocked ? <RiLockFill/> : <RiCalendarEventLine/>}
-          onClick={() =>console.log("Events not implemented")}
-          style={{
-            color: artworkOverlay === "details" ? "teal" : "gray",
-            fontSize: "2.7em"
-          }}
-          isRound
-          isDisabled={true}
-        />
-        </Tooltip>
+          <Tooltip label="Artwork">
+            <IconButton
+              variant='link'
+              colorScheme='gray'
+              aria-label='details'
+              size='lg'
+              icon={<RiImage2Line/>}
+              onClick={() => setArtworkOverlay(null)}
+              style={{
+                color: artworkOverlay === null ? "teal" : "gray",
+                fontSize: "2.7em"
+              }}
+              isRound
+            />
+          </Tooltip>
+          <Tooltip label="Emotions">
+            <IconButton
+              variant='link'
+              colorScheme='gray'
+              aria-label='emotions'
+              size='lg'
+              m={1}
+              icon={< RiPaletteLine />}
+              onClick={() => {
+                setArtworkOverlay(artworkOverlay === "emotions" ? null : "emotions")
+              }}
+              style={{
+                color: artworkOverlay === "emotions" ? "teal" : "gray",
+                fontSize: "2.7em"
+              }}
+              isRound
+              h="50"
+              w="50"
+            />
+          </Tooltip>
+          <Tooltip label="Description">
+            <IconButton
+              variant='link'
+              colorScheme='gray'
+              size='lg'
+              icon={isLocked ? <RiLockFill/> : <RiBrushLine/>}
+              onClick={() =>
+                setArtworkOverlay(artworkOverlay === "details" ? null : "details")
+              }
+              style={{
+                color: artworkOverlay === "details" ? "teal" : "gray",
+                fontSize: "2.7em"
+              }}
+              isRound
+              isDisabled={isLocked}
+            />
+          </Tooltip>
+          <Tooltip label="Events">
+            <IconButton
+              variant='link'
+              colorScheme='gray'
+              size='lg'
+              icon={isLocked ? <RiLockFill/> : <RiCalendarEventLine/>}
+              onClick={() =>console.log("Events not implemented")}
+              style={{
+                color: artworkOverlay === "events" ? "teal" : "gray",
+                fontSize: "2.7em"
+              }}
+              isRound
+              isDisabled={true}
+            />
+          </Tooltip>
+          <Tooltip label="Location">
+            <IconButton
+              variant='link'
+              colorScheme='gray'
+              size='lg'
+              icon={isLocked ? <RiLockFill/> : <RiMapPin2Line/>}
+              onClick={() =>console.log("Location not implemented")}
+              style={{
+                color: artworkOverlay === "link" ? "teal" : "gray",
+                fontSize: "2.7em"
+              }}
+              isRound
+              isDisabled={true}
+            />
+          </Tooltip>
+          <Tooltip label="Comments">
+            <IconButton
+              variant='link'
+              colorScheme='gray'
+              size='lg'
+              icon={isLocked ? <RiLockFill/> : <RiMessage2Line/>}
+              onClick={() =>console.log("Comments not implemented")}
+              style={{
+                color: artworkOverlay === "comments" ? "teal" : "gray",
+                fontSize: "2.7em"
+              }}
+              isRound
+              isDisabled={true}
+            />
+          </Tooltip>
+          <Tooltip label="Get in touch">
+            <IconButton
+              variant='link'
+              colorScheme='gray'
+              size='lg'
+              icon={isLocked ? <RiLockFill/> : <RiMailSendLine/>}
+              onClick={() =>console.log("Get in touch not implemented")}
+              style={{
+                color: artworkOverlay === "getInTouch" ? "teal" : "gray",
+                fontSize: "2.7em"
+              }}
+              isRound
+              isDisabled={true}
+            />
+          </Tooltip>
+          <Tooltip label="Shop">
+            <IconButton
+              variant='link'
+              colorScheme='gray'
+              size='lg'
+              icon={isLocked ? <RiLockFill/> : <RiShoppingBag3Line/>}
+              onClick={() =>console.log("Shop not implemented")}
+              style={{
+                color: artworkOverlay === "shop" ? "teal" : "gray",
+                fontSize: "2.7em"
+              }}
+              isRound
+              isDisabled={true}
+            />
+          </Tooltip>
 
-        <Tooltip label="Location">
-        <IconButton
-          variant='link'
-          colorScheme='gray'
-          size='lg'
-          icon={isLocked ? <RiLockFill/> : <RiMapPin2Line/>}
-          onClick={() =>console.log("Location not implemented")}
-          style={{
-            color: artworkOverlay === "details" ? "teal" : "gray",
-            fontSize: "2.7em"
-          }}
-          isRound
-          isDisabled={true}
-        />
-        </Tooltip>
-        <Tooltip label="Comments">
-          <IconButton
-            variant='link'
-            colorScheme='gray'
-            size='lg'
-            icon={isLocked ? <RiLockFill/> : <RiMessage2Line/>}
-            onClick={() =>console.log("Comments not implemented")}
-            style={{
-              color: artworkOverlay === "comments" ? "teal" : "gray",
-              fontSize: "2.7em"
-            }}
-            isRound
-            isDisabled={true}
-          />
-        </Tooltip>
-        <Tooltip label="Get in touch">
-        <IconButton
-          variant='link'
-          colorScheme='gray'
-          size='lg'
-          icon={isLocked ? <RiLockFill/> : <RiMailSendLine/>}
-          onClick={() =>console.log("Get in touch not implemented")}
-          style={{
-            color: artworkOverlay === "getInTouch" ? "teal" : "gray",
-            fontSize: "2.7em"
-          }}
-          isRound
-          isDisabled={true}
-        />
-        </Tooltip>
-        <Tooltip label="Shop">
-        <IconButton
-          variant='link'
-          colorScheme='gray'
-          size='lg'
-          icon={isLocked ? <RiLockFill/> : <RiShoppingBag3Line/>}
-          onClick={() =>console.log("Shop not implemented")}
-          style={{
-            color: artworkOverlay === "shop" ? "teal" : "gray",
-            fontSize: "2.7em"
-          }}
-          isRound
-          isDisabled={true}
-        />
-        </Tooltip>
-
-      </Box >
+        </Box>
         <Box
           color='gray'
           fontWeight='semibold'
