@@ -66,13 +66,23 @@ function ArtworkCard({ base, ...props }) {
     }[o]
   }
 
+
   const getUserLink = () => {
+    const navigateToArtistPage = () => {
+      if (window.location.pathname === `/artists/${artwork?.artist?.username}`) {
+        window.scrollTo(0, 0)
+      }
+      else {
+        navigate(`/artists/${artwork?.artist?.username}`)
+      }
+    }
+
     return (
       <Box
         display="flex"
         alignItems="center"
         cursor="pointer"
-        onClick={() => navigate(`/artists/${artwork?.artist?.username}`)}
+        onClick={navigateToArtistPage}
       >
         <Text pr={2}> {artwork?.artist?.username} </Text>
         <Avatar src={artwork?.artist?.photo} />
