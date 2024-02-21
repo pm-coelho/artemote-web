@@ -14,7 +14,8 @@ import {
   RiMap2Line,
   RiArtboardLine,
   RiPinDistanceLine,
-  RiChat1Line
+  RiChat1Line,
+  RiShoppingCartLine,
 } from 'react-icons/ri'
 
 
@@ -140,6 +141,21 @@ const ArtistPage = () => {
                   aria-label='chat'
                   size='lg'
                   icon={< RiChat1Line/>}
+                  style={{
+                    color: "gray",
+                    fontSize: "2.7em"
+                  }}
+                  isRound
+                />
+              </Tooltip>
+              <Tooltip label="Shop">
+                <IconButton
+                  variant='link'
+                  px={2}
+                  colorScheme='gray'
+                  aria-label='chat'
+                  size='lg'
+                  icon={<RiShoppingCartLine/>}
                   style={{
                     color: "gray",
                     fontSize: "2.7em"

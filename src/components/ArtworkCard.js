@@ -18,6 +18,9 @@ import {
   RiBubbleChartFill,
   RiCalendarEventLine,
   RiMapPin2Line,
+  RiMessage2Line,
+  RiMailSendLine,
+  RiShoppingBag3Line
 } from "react-icons/ri";
 
 import { useAuth } from '../contexts/AuthContext';
@@ -178,6 +181,51 @@ function ArtworkCard({ base, ...props }) {
           onClick={() =>console.log("Location not implemented")}
           style={{
             color: artworkOverlay === "details" ? "teal" : "gray",
+            fontSize: "2.7em"
+          }}
+          isRound
+          isDisabled={true}
+        />
+        </Tooltip>
+        <Tooltip label="Comments">
+          <IconButton
+            variant='link'
+            colorScheme='gray'
+            size='lg'
+            icon={isLocked ? <RiLockFill/> : <RiMessage2Line/>}
+            onClick={() =>console.log("Comments not implemented")}
+            style={{
+              color: artworkOverlay === "comments" ? "teal" : "gray",
+              fontSize: "2.7em"
+            }}
+            isRound
+            isDisabled={true}
+          />
+        </Tooltip>
+        <Tooltip label="Get in touch">
+        <IconButton
+          variant='link'
+          colorScheme='gray'
+          size='lg'
+          icon={isLocked ? <RiLockFill/> : <RiMailSendLine/>}
+          onClick={() =>console.log("Get in touch not implemented")}
+          style={{
+            color: artworkOverlay === "getInTouch" ? "teal" : "gray",
+            fontSize: "2.7em"
+          }}
+          isRound
+          isDisabled={true}
+        />
+        </Tooltip>
+        <Tooltip label="Shop">
+        <IconButton
+          variant='link'
+          colorScheme='gray'
+          size='lg'
+          icon={isLocked ? <RiLockFill/> : <RiShoppingBag3Line/>}
+          onClick={() =>console.log("Shop not implemented")}
+          style={{
+            color: artworkOverlay === "shop" ? "teal" : "gray",
             fontSize: "2.7em"
           }}
           isRound
