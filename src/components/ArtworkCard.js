@@ -11,6 +11,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import {
   RiBrushLine,
   RiPaletteLine,
@@ -32,10 +33,11 @@ import ArtDetailsOverlay from './ArtDetailsOverlay'
 
 function ArtworkCard({ base, ...props }) {
   const {client} = useAuth();
+  const navigate = useNavigate();
 
+  const { id } = useParams()
   const [isOverlayActive, setIsOverlayOpen] = useState(false)
   const [artwork, setArtwork] = useState(base)
-  const { id } = useParams()
   const [artworkOverlay, setArtworkOverlay] = useState(null)
   const [isLocked, setIsLocked] = useState(true)
 
@@ -65,9 +67,13 @@ function ArtworkCard({ base, ...props }) {
   }
 
   const getUserLink = () => {
-    console.log(artwork)
     return (
-      <Box display="flex" alignItems="center" >
+      <Box
+        display="flex"
+        alignItems="center"
+        cursor="pointer"
+        onClick={() => navigate(`/artists/${artwork?.artist?.username}`)}
+      >
         <Text pr={2}> {artwork?.artist?.username} </Text>
         <Avatar src={artwork?.artist?.photo} />
       </Box>
