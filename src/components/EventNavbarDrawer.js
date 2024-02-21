@@ -15,49 +15,13 @@ import {
   RiUser3Line,
   RiGalleryLine,
 } from "react-icons/ri";
+import { getFormattedDateRange } from '../utils';
 
 import EventNavbarDrawerDescriptionContent from './EventNavbarDrawerDescriptionContent';
 import EventNavbarDrawerLocationContent from './EventNavbarDrawerLocationContent';
 
 const EventNavbarDrawer = ({isOpen, onClose, event}) => {
   const [content, setContent] = React.useState("description");
-
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-  const formatDate = (date, includeYear) => {
-    const day = date.getUTCDate();
-    const month = months[date.getUTCMonth()];
-    const year = `'${date.getUTCFullYear().toString().substr(-2)}`;
-    return includeYear ? `${day} ${month} ${year}` : `${day} ${month}`;
-  };
-
-  const getFormattedDateRange = (ev) => {
-    const start = ev.startDate ? new Date(ev.startDate) : null;
-    const end = ev.endDate ? new Date(ev.endDate) : null;
-    const today = new Date();
-
-    let fullString = ""
-
-    if (start && start >= today) {
-      const formattedStartDate = formatDate(
-        start,
-        today.getUTCFullYear() !== start.getUTCFullYear()
-      );
-      fullString += `${formattedStartDate} - `;
-    } else {
-      fullString += "Ongoing - ";
-    }
-
-    if (end) {
-      const formattedEndDate = formatDate(
-        end,
-        today.getUTCFullYear() !== end.getUTCFullYear()
-      );
-      fullString += `${formattedEndDate}`;
-    }
-
-    return fullString;
-  };
 
   const getContent = (content) => {
     return {
@@ -96,7 +60,7 @@ const EventNavbarDrawer = ({isOpen, onClose, event}) => {
             display="flex"
             alignItems="center"
           >
-            {event && getFormattedDateRange(event)}
+            {event && getFormattedDateRange(event.startDate, event.endDate)}
           </Box>
           <Box
             color='gray.500'
