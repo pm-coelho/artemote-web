@@ -7,6 +7,7 @@ import {
   IconButton,
   Tooltip,
   useColorModeValue,
+  Avatar,
 } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
 import {
@@ -238,18 +239,23 @@ function ArtworkCard({ base, ...props }) {
           color='gray'
           fontWeight='semibold'
           letterSpacing='wide'
+          display='flex'
           fontSize='xl'
           textTransform='Capitalize'
           mt='1'
           ml='2'
           mr='10'
-          pt='2'
-          display="flex"
+          py='1'
           alignItems="center"
         >
           {!isLocked&&
            <Box>
-            {artwork?.artist.username}
+             {artwork?.artist?.username}
+             <Avatar
+               size='sm'
+               name={artwork?.artist?.username}
+               src={artwork?.artist?.photo}
+             />
            </Box>
           }
         </Box>

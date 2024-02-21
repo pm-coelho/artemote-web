@@ -18,9 +18,7 @@ const EventList = ({ artist }) => {
   const subTextColor = useColorModeValue('gray.400', 'gray.200');
 
   return (
-    <Container
-      w="5xl"
-    >
+    <Container w="5xl" >
       {artist?.events?.map((event) => (
         <Box
           key={event.id}

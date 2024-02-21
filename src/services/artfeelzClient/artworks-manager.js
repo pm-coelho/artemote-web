@@ -3,6 +3,9 @@ const ArtworksManager = (conn) =>({
   get: async (id) => (
     await conn.get(`/artworks/${id}/`)
   ).data,
+  getRandom: async () => (
+    await conn.get('/artworks/random/')
+  ).data,
   addEmotion: async (id, emotion) => (
     await conn.post(`/artworks/${id}/emotions/`, { emotion })
   ).data,
