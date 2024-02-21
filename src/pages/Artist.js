@@ -57,7 +57,7 @@ const ArtistPage = () => {
             <Box>
               <Box px={4} py={2} >
                 <WrapItem>
-                  <Avatar size='2xl' name={artist?.lastName} src={artist?.photo} />
+                  <Avatar size='2xl' src={artist?.photo} />
                   <Box pl={5} width="100%"
                     textAlign="left"
                   >

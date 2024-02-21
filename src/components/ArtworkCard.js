@@ -8,6 +8,7 @@ import {
   Tooltip,
   useColorModeValue,
   Avatar,
+  Text,
 } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
 import {
@@ -63,6 +64,16 @@ function ArtworkCard({ base, ...props }) {
     }[o]
   }
 
+  const getUserLink = () => {
+    console.log(artwork)
+    return (
+      <Box display="flex" alignItems="center" >
+        <Text pr={2}> {artwork?.artist?.username} </Text>
+        <Avatar src={artwork?.artist?.photo} />
+      </Box>
+    )
+  }
+
   return (
     <Box
       maxW='2xl'
@@ -92,7 +103,8 @@ function ArtworkCard({ base, ...props }) {
             {artworkOverlay && getOverlay(artworkOverlay)}
           </Box>
       </Box>
-      <Box display='flex' justifyContent='space-between' >
+      <Box display='flex' justifyContent='space-between'
+      >
       <Box
         color='gray.500'
         fontWeight='semibold'
@@ -244,20 +256,12 @@ function ArtworkCard({ base, ...props }) {
           textTransform='Capitalize'
           mt='1'
           ml='2'
-          mr='10'
+          mr='2'
           py='1'
           alignItems="center"
         >
-          {!isLocked&&
-           <Box>
-             {artwork?.artist?.username}
-             <Avatar
-               size='sm'
-               name={artwork?.artist?.username}
-               src={artwork?.artist?.photo}
-             />
-           </Box>
-          }
+          {!isLocked && getUserLink()}
+
         </Box>
       </Box>
       <Box
